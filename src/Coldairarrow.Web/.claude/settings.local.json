@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(cat:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(where:*)",
+      "Bash(cnpm install:*)",
+      "Bash(npm run serve:*)",
+      "Bash(node --version:*)",
+      "Bash(npm --version)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
