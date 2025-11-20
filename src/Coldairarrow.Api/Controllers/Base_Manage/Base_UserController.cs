@@ -1,6 +1,8 @@
-﻿using Coldairarrow.Business.Base_Manage;
+using Coldairarrow.Business.Base_Manage;
 using Coldairarrow.Entity;
+using Coldairarrow.Entity.DTO;
 using Coldairarrow.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using System.Collections.Generic;
@@ -21,6 +23,19 @@ namespace Coldairarrow.Api.Controllers.Base_Manage
 
         IBase_UserBusiness _userBus { get; }
 
+        #endregion
+        #region 验证
+        [HttpPost]
+        public async Task CheckUserNameExists(string input)
+        {
+            await _userBus.CheckUserNameExistsAsync(input);
+        }
+
+        [HttpPost]
+        public async Task CheckEmailExists(string input)
+        {
+            await _userBus.CheckEmailExistsAsync(input);
+        }
         #endregion
 
         #region 获取
@@ -70,6 +85,21 @@ namespace Coldairarrow.Api.Controllers.Base_Manage
             await _userBus.DeleteDataAsync(ids);
         }
 
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task SendVerifyCode([FromBody] SendVerifyCodeInputDTO input)
+        {
+            if (input.Type == "register")
+                await _userBus.SendVerifyCodeAsync(input.Email);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task Register(RegisterInputDTO registerInputDTO)
+        {
+            await _userBus.RegisterAsync(registerInputDTO);
+        }
         #endregion
     }
 }

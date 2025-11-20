@@ -37,7 +37,7 @@ namespace Coldairarrow.Api
                 });
             });
             services.AddHttpContextAccessor();
-
+            services.AddSingleton<Coldairarrow.Util.Email163Service>();
             //swagger
             services.AddOpenApiDocument(settings =>
             {

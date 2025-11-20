@@ -62,6 +62,21 @@ namespace Coldairarrow.Entity.Base_Manage
         /// 所属部门Id
         /// </summary>
         public String DepartmentId { get; set; }
+        /// <summary>
+        /// 头像URL
+        /// </summary>
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Introduction { get; set; }
+        public UserType UserType { get; set; }
+        public DateTime? LastLoginTime { get; set; }
+        public string LastLoginIP { get; set; }
+        public int Status { get; set; }
     }
 
     public enum Sex
@@ -71,5 +86,13 @@ namespace Coldairarrow.Entity.Base_Manage
 
         [Description("女人")]
         Woman = 0
+    }
+    public enum UserType
+    {
+        User = 0,
+        Student = 1,      
+        Teacher = 2,
+        InstitutionAdmin = 3,
+        Admin = 4,        
     }
 }

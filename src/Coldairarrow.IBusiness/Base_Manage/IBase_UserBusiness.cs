@@ -14,6 +14,10 @@ namespace Coldairarrow.Business.Base_Manage
         Task AddDataAsync(UserEditInputDTO input);
         Task UpdateDataAsync(UserEditInputDTO input);
         Task DeleteDataAsync(List<string> ids);
+        Task CheckUserNameExistsAsync(string input);
+        Task CheckEmailExistsAsync(string input);
+        Task SendVerifyCodeAsync(string email);
+        Task RegisterAsync(RegisterInputDTO registerInputDTO);
     }
 
     [Map(typeof(Base_User))]
@@ -28,5 +32,12 @@ namespace Coldairarrow.Business.Base_Manage
         public bool all { get; set; }
         public string userId { get; set; }
         public string keyword { get; set; }
+    }
+    public class RegisterInputDTO
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string VerifyCode { get; set; }
+        public string Password { get; set; }
     }
 }
