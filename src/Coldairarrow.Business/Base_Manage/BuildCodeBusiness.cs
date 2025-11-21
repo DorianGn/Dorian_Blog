@@ -4,6 +4,7 @@ using EFCore.Sharding;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.IO;
+using Coldairarrow.Api.Extentions;
 using System.Linq;
 using System.Text;
 
@@ -72,6 +73,101 @@ namespace Coldairarrow.Business.Base_Manage
                 List<string> selectOptionsList = new List<string>();
                 List<string> listColumnsList = new List<string>();
                 List<string> formColumnsList = new List<string>();
+
+                tableFieldInfo.Where(x => !ignoreProperties.Contains(x.Name)).ToList().ForEach(aField =>
+                {
+                    if (_dbHelper.DbTypeStr_To_CsharpType(aField.Type) == typeof(string))
+                        selectOptionsList.Add(
+$"                <a-select-option key=\"{aField.Name}\">{aField.Description}</a-select-option>");
+                    listColumnsList.Add(
+$"  {{ title: '{aField.Description}', dataIndex: '{aField.Name}', width: '10%' }},");
+                    formColumnsList.Add(
+$@"        <a-form-model-item label=""{aField.Description}"" prop=""{aField.Name}"">
+          <a-input v-model=""entity.{aField.Name}"" autocomplete=""off"" />
+        </a-form-model-item>");
+                });
+
+                Dictionary<string, string> renderParamters = new Dictionary<string, string>
+                {
+                    {$"%{nameof(areaName)}%",areaName },
+                    {$"%{nameof(entityName)}%",entityName },
+                    {$"%{nameof(busName)}%",busName },
+                    {$"%{nameof(_busName)}%",_busName },
+                    {$"%selectOptions%",string.Join("\r\n",selectOptionsList) },
+                    {$"%listColumns%",string.Join("\r\n",listColumnsList) },
+                    {$"%formColumns%",string.Join("\r\n",formColumnsList) }
+                };
+
+                //buildTypes,实体层=0,业务层=1,接口层=2,页面层=3
+                //实体层
+                if (buildTypes.Contains(0))
+                {
+                    BuildEntity(tableFieldInfo, aTable);
+                }
+                string tmpFileName = string.Empty;
+                string savePath = string.Empty;
+                //业务层
+                if (buildTypes.Contains(1))
+                {
+                    //接口
+                    tmpFileName = "IBusiness.txt";
+                    savePath = Path.Combine(
+                        _solutionPath,
+                        "Coldairarrow.IBusiness",
+                        areaName,
+                        $"I{entityName}Business.cs");
+                    WriteCode(renderParamters, tmpFileName, savePath);
+
+                    //实现
+                    tmpFileName = "Business.txt";
+                    savePath = Path.Combine(
+                        _solutionPath,
+                        "Coldairarrow.Business",
+                        areaName,
+                        $"{entityName}Business.cs");
+                    WriteCode(renderParamters, tmpFileName, savePath);
+                }
+                //接口层
+                if (buildTypes.Contains(2))
+                {
+                    tmpFileName = "Controller.txt";
+                    savePath = Path.Combine(
+                        _solutionPath,
+                        "Coldairarrow.Api",
+                        "Controllers",
+                        areaName,
+                        $"{entityName}Controller.cs");
+                    WriteCode(renderParamters, tmpFileName, savePath);
+                }
+                //页面层
+                if (buildTypes.Contains(3))
+                {
+                    //表格页
+                    tmpFileName = "List.txt";
+                    savePath = Path.Combine(
+                        _solutionPath,
+                        "Coldairarrow.Web",
+                        "src",
+                        "views",
+                        areaName,
+                        entityName,
+                        "List.vue");
+                    WriteCode(renderParamters, tmpFileName, savePath);
+
+                    //表单页
+                    tmpFileName = "EditForm.txt";
+                    savePath = Path.Combine(
+                        _solutionPath,
+                        "Coldairarrow.Web",
+                        "src",
+                        "views",
+                        areaName,
+                        entityName,
+                        "EditForm.vue");
+                    WriteCode(renderParamters, tmpFileName, savePath);
+                }
+
+                /* 【旧代码-已废弃】存在逻辑错误：renderParamters定义和代码生成在字段遍历循环内，导致每个字段都生成一次文件
                 tableFieldInfo.Where(x => !ignoreProperties.Contains(x.Name)).ToList().ForEach(aField =>
                 {
                     if (_dbHelper.DbTypeStr_To_CsharpType(aField.Type) == typeof(string))
@@ -163,6 +259,7 @@ $@"        <a-form-model-item label=""{aField.Description}"" prop=""{aField.Name
                         WriteCode(renderParamters, tmpFileName, savePath);
                     }
                 });
+                */
             });
         }
 

@@ -90,9 +90,8 @@ namespace Coldairarrow.Entity.Base_Manage
     public enum UserType
     {
         User = 0,
-        Student = 1,      
-        Teacher = 2,
-        InstitutionAdmin = 3,
-        Admin = 4,        
+        Visitor = 1,      
+        Admin_L1 = 2,
+        Admin = 3
     }
 }

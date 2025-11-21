@@ -17,9 +17,6 @@
 
 <script>
 export default {
-  props: {
-    parentObj: Object
-  },
   data() {
     return {
       layout: {
@@ -65,7 +62,7 @@ export default {
           if (resJson.Success) {
             this.$message.success('操作成功!')
             this.visible = false
-
+            this.$emit('success')
             this.parentObj.getDataList()
           } else {
             this.$message.error(resJson.Msg)

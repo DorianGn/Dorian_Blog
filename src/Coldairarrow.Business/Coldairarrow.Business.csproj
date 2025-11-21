@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Coldairarrow.IBusiness\Coldairarrow.IBusiness.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Blog_Manage\" />
+  </ItemGroup>
+
 </Project>

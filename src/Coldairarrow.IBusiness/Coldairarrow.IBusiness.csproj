@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Coldairarrow.Util\Coldairarrow.Util.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Blog_Manage\" />
+  </ItemGroup>
+
 </Project>
