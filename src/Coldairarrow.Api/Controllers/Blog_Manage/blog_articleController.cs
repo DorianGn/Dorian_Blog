@@ -1,5 +1,6 @@
 ﻿using Coldairarrow.Business.Blog_Manage;
 using Coldairarrow.Entity.Blog_Manage;
+using Coldairarrow.Entity.DTO.Blog_Manage;
 using Coldairarrow.Util;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -50,6 +51,8 @@ namespace Coldairarrow.Api.Controllers.Blog_Manage
             }
             else
             {
+                UpdateEntity(data);
+
                 await _blog_articleBus.UpdateDataAsync(data);
             }
         }

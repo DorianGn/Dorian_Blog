@@ -1,11 +1,12 @@
 ﻿<template>
   <a-modal
     :title="title"
-    width="40%"
+    width="50%"
     :visible="visible"
     :confirmLoading="loading"
     @ok="handleSubmit"
-    @cancel="()=>{this.visible=false}"
+    @cancel="()=>{this.visible=false}
+    :bodyStyle="{ maxHeight: '70vh', overflowY: 'auto' }"
   >
     <a-spin :spinning="loading">
       <a-form-model ref="form" :model="entity" :rules="rules" v-bind="layout">

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <a-card :bordered="false">
     <div class="table-operator">
       <a-button type="primary" icon="plus" @click="hanldleAdd()">新建</a-button>
@@ -18,7 +18,10 @@
           <a-col :md="4" :sm="24">
             <a-form-item label="查询类别">
               <a-select allowClear v-model="queryParam.condition">
-%selectOptions%
+                <a-select-option key="Name">分类名称</a-select-option>
+                <a-select-option key="Description">分类描述</a-select-option>
+                <a-select-option key="Icon">分类图标</a-select-option>
+                <a-select-option key="UpdaterId">更新人</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -64,7 +67,13 @@
 import EditForm from './EditForm'
 
 const columns = [
-%listColumns%
+  { title: '分类名称', dataIndex: 'Name', width: '10%' },
+  { title: '分类描述', dataIndex: 'Description', width: '20%' },
+  { title: '分类图标', dataIndex: 'Icon', width: '10%' },
+  { title: '排序号', dataIndex: 'SortIndex', width: '10%' },
+  { title: '状态', dataIndex: 'Status', width: '10%', customRender: (text) => text === 1 ? '启用' : '禁用' },
+  { title: '文章数量', dataIndex: 'ArticleCount', width: '10%' },
+  { title: '是否删除', dataIndex: 'IsDeleted', width: '10%',customRender:(text) =>text ===1?'是':'否' },
   { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
 ]
 
@@ -100,9 +109,10 @@ export default {
     },
     getDataList() {
       this.selectedRowKeys = []
+
       this.loading = true
       this.$http
-        .post('/%areaName%/%entityName%/GetDataList', {
+        .post('/Blog_Manage/blog_category/GetDataList', {
           PageIndex: this.pagination.current,
           PageRows: this.pagination.pageSize,
           SortField: this.sorter.field || 'Id',
@@ -125,10 +135,10 @@ export default {
       return this.selectedRowKeys.length > 0
     },
     hanldleAdd() {
-      this.$refs.editForm.openForm(null,'新建表单')
+      this.$refs.editForm.openForm(null,'新建分类')
     },
     handleEdit(id) {
-      this.$refs.editForm.openForm(id,'编辑表单')
+      this.$refs.editForm.openForm(id,'编辑分类')
     },
     handleDelete(ids) {
       var thisObj = this
@@ -136,7 +146,7 @@ export default {
         title: '确认删除吗?',
         onOk() {
           return new Promise((resolve, reject) => {
-            thisObj.$http.post('/%areaName%/%entityName%/DeleteData', ids).then(resJson => {
+            thisObj.$http.post('/Blog_Manage/blog_category/DeleteData', ids).then(resJson => {
               resolve()
 
               if (resJson.Success) {

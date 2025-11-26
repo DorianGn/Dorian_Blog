@@ -146,10 +146,9 @@ export default {
     handleLogin() {
       this.form.validateFields(['userName', 'password', 'captcha'], (errors, values) => {
         if (errors) {
-          alert('表单验证失败:', errors)
+          this.$message.error('校验失败，请检查输入项')
           return
         }
-
         const submitValues = this.form.getFieldsValue()
         this.loginLoading = true
         const loginData = {

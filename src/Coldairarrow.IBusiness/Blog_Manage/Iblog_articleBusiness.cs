@@ -1,4 +1,5 @@
 ﻿using Coldairarrow.Entity.Blog_Manage;
+using Coldairarrow.Entity.DTO.Blog_Manage;
 using Coldairarrow.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;

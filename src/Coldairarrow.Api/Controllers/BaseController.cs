@@ -22,10 +22,23 @@ namespace Coldairarrow.Api
                 obj.SetPropertyValue("Id", IdHelper.GetId());
             if (obj.ContainsProperty("CreateTime"))
                 obj.SetPropertyValue("CreateTime", DateTime.Now);
+            if (obj.ContainsProperty("CreatedTime"))
+                obj.SetPropertyValue("CreatedTime", DateTime.Now);
             if (obj.ContainsProperty("CreatorId"))
                 obj.SetPropertyValue("CreatorId", op?.UserId);
             if (obj.ContainsProperty("CreatorRealName"))
                 obj.SetPropertyValue("CreatorRealName", op?.Property?.RealName);
+        }
+
+        protected void UpdateEntity(object obj)
+        {
+            var op = HttpContext.RequestServices.GetService<IOperator>();
+            if (obj.ContainsProperty("UpdateTime"))
+                obj.SetPropertyValue("UpdateTime", DateTime.Now);
+            if (obj.ContainsProperty("UpdatedTime"))
+                obj.SetPropertyValue("UpdatedTime", DateTime.Now);
+            if (obj.ContainsProperty("UpdaterId"))
+                obj.SetPropertyValue("UpdaterId", op?.UserId);
         }
 
         protected string GetAbsolutePath(string virtualPath)

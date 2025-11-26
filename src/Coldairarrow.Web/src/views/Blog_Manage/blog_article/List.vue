@@ -16,7 +16,6 @@
                 <a-select-option key="Title">文章标题</a-select-option>
                 <a-select-option key="Summary">文章摘要</a-select-option>
                 <a-select-option key="Content">文章内容</a-select-option>
-                <a-select-option key="CoverImage">封面图片</a-select-option>
                 <a-select-option key="CategoryId">分类</a-select-option>
                 <a-select-option key="AuthorId">作者</a-select-option>
                 <a-select-option key="UpdaterId">更新人</a-select-option>
@@ -39,6 +38,15 @@
     <a-table ref="table" :columns="columns" :rowKey="row => row.Id" :dataSource="data" :pagination="pagination"
       :loading="loading" @change="handleTableChange" :scroll="{x:2000,y:600}"
       :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }" :bordered="true" size="small">
+      <span slot="coverImage" slot-scope="text, record">
+        <img
+          v-if="text"
+          :src="getImageUrl(text, record.UpdatedTime)"
+          alt="封面"
+          style="max-width: 100px; max-height: 60px; object-fit: cover;"
+          loading="lazy" />
+        <span v-else>无封面</span>
+      </span>
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record.Id)">编辑</a>
@@ -56,11 +64,33 @@
 import EditForm from './EditForm'
 
 const columns = [
-  { title: '序号', dataIndex: 'Id', width: '10%' },
+  { title: '序号', dataIndex: 'Id', width: '10%',customRender:(text,record,index) => index+1 },
   { title: '文章标题', dataIndex: 'Title', width: '20%' },
-  { title: '文章摘要', dataIndex: 'Summary', width: '20%' },
-  { title: '文章内容', dataIndex: 'Content', width: '40%' },
-  { title: '封面图片', dataIndex: 'CoverImage', width: '15%' },
+  {
+    title: '文章摘要',
+    dataIndex: 'Summary',
+    width: '20%',
+    customRender: (text) => {
+      if (!text) return '-'
+      return text.length > 50 ? text.substring(0, 30) + '...' : text
+    }
+  },
+  {
+    title: '文章内容',
+    dataIndex: 'Content',
+    width: '40%',
+    customRender: (text) => {
+      if (!text) return '-'
+      const plainText = text.replace(/<[^>]+>/g, '')
+      return plainText.length > 100 ? plainText.substring(0, 100) + '...' : plainText
+    }
+  },
+  {
+    title: '封面图片',
+    dataIndex: 'CoverImage',
+    width: '20%',
+    scopedSlots: { customRender: 'coverImage' }
+  },
   { title: '分类', dataIndex: 'CategoryId', width: '12%' },
   { title: '作者', dataIndex: 'AuthorId', width: '12%' },
   {
@@ -90,16 +120,21 @@ const columns = [
   { title: '阅读量', dataIndex: 'ViewCount', width: '12%' },
   { title: '点赞数', dataIndex: 'LikeCount', width: '12%' },
   { title: '评论数', dataIndex: 'CommentCount', width: '12%' },
-  { title: '发布时间', dataIndex: 'PublishTime', width: '20%' },
+  {
+    title: '发布时间',
+    dataIndex: 'PublishTime',
+    width: '20%',
+    customRender: (text) => {
+      if (!text) return '-'
+      return text.replace(/\.\d{3}$/, '')
+    }
+  },
   {
     title: '是否删除', dataIndex: 'IsDeleted', width: '14%', customRender: (text) => {
       const statusMap = { 0: '否', 1: '是' }
       return statusMap[text]
     }
   },
-  { title: '创建时间', dataIndex: 'CreatedTime', width: '20%' },
-  { title: '更新时间', dataIndex: 'UpdatedTime', width: '20%' },
-  { title: '更新人', dataIndex: 'UpdaterId', width: '10%' },
   { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' }, width: '15%' }
 ]
 
@@ -127,6 +162,30 @@ export default {
     }
   },
   methods: {
+    getImageUrl(url, updatedTime) {
+      if (!url) return ''
+
+      // 如果没有更新时间，直接返回原始URL
+      if (!updatedTime) {
+        return url
+      }
+
+      try {
+        let timeStr = updatedTime.replace(/\.\d{3}$/, '').replace(' ', 'T')
+        let timestamp = new Date(timeStr).getTime()
+
+        if (isNaN(timestamp)) {
+          timestamp = updatedTime.split('').reduce((hash, char) => {
+            return ((hash << 5) - hash) + char.charCodeAt(0)
+          }, 0)
+        }
+
+        return `${url}?v=${Math.abs(timestamp)}`
+      } catch (e) {
+        console.error('时间解析错误:', e, updatedTime)
+        return url
+      }
+    },
     handleTableChange(pagination, filters, sorter) {
       this.pagination = { ...pagination }
       this.filters = { ...filters }
