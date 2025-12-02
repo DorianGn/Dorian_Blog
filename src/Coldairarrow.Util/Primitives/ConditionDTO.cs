@@ -7,5 +7,8 @@
     {
         public string Condition { get; set; }
         public string Keyword { get; set; }
+        public int? isDeleted { set; get; }
+        public int? Status { get; set; }
+
     }
 }

@@ -78,7 +78,7 @@ namespace Coldairarrow.Business.Base_Manage
                 {
                     if (_dbHelper.DbTypeStr_To_CsharpType(aField.Type) == typeof(string))
                         selectOptionsList.Add(
-$"                <a-select-option key=\"{aField.Name}\">{aField.Description}</a-select-option>");
+$"                <a-select-option value=\"{aField.Name}\">{aField.Description}</a-select-option>");
                     listColumnsList.Add(
 $"  {{ title: '{aField.Description}', dataIndex: '{aField.Name}', width: '10%' }},");
                     formColumnsList.Add(

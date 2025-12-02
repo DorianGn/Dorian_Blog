@@ -1,13 +1,6 @@
 ﻿<template>
-  <a-modal
-    :title="title"
-    width="50%"
-    :visible="visible"
-    :confirmLoading="loading"
-    @ok="handleSubmit"
-    @cancel="()=>{this.visible=false}
-    :bodyStyle="{ maxHeight: '70vh', overflowY: 'auto' }"
-  >
+  <a-modal :title="title" width="50%" :visible="visible" :confirmLoading="loading" @ok="handleSubmit"
+    :bodyStyle="{ maxHeight: '70vh', overflowY: 'auto' }" @cancel="() => { this.visible = false }">
     <a-spin :spinning="loading">
       <a-form-model ref="form" :model="entity" :rules="rules" v-bind="layout">
 %formColumns%
@@ -41,7 +34,7 @@ export default {
     },
     openForm(id, title) {
       this.init()
-
+      this.title = title
       if (id) {
         this.loading = true
         this.$http.post('/%areaName%/%entityName%/GetTheData', { id: id }).then(resJson => {
@@ -59,7 +52,6 @@ export default {
         this.loading = true
         this.$http.post('/%areaName%/%entityName%/SaveData', this.entity).then(resJson => {
           this.loading = false
-
           if (resJson.Success) {
             this.$message.success('操作成功!')
             this.visible = false

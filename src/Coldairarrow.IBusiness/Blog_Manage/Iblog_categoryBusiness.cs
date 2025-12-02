@@ -7,7 +7,7 @@ namespace Coldairarrow.Business.Blog_Manage
 {
     public interface Iblog_categoryBusiness
     {
-        Task<PageResult<blog_category>> GetDataListAsync(PageInput<ConditionDTO> input);
+        Task<PageResult<blog_category>> GetDataListAsync(PageInput<Entity.DTO.Blog_Manage.ConditionDTO> input);
         Task<blog_category> GetTheDataAsync(string id);
         Task AddDataAsync(blog_category data);
         Task UpdateDataAsync(blog_category data);

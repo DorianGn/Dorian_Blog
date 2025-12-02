@@ -73,7 +73,7 @@ namespace Coldairarrow.Entity.Base_Manage
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Introduction { get; set; }
-        public UserType UserType { get; set; }
+        public int UserType { get; set; }
         public DateTime? LastLoginTime { get; set; }
         public string LastLoginIP { get; set; }
         public int Status { get; set; }
@@ -86,12 +86,5 @@ namespace Coldairarrow.Entity.Base_Manage
 
         [Description("女人")]
         Woman = 0
-    }
-    public enum UserType
-    {
-        User = 0,
-        Visitor = 1,      
-        Admin_L1 = 2,
-        Admin = 3
     }
 }

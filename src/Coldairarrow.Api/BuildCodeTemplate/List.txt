@@ -17,7 +17,7 @@
         <a-row :gutter="10">
           <a-col :md="4" :sm="24">
             <a-form-item label="查询类别">
-              <a-select allowClear v-model="queryParam.condition">
+              <a-select allowClear v-model="queryParam.condition" placeholder="请选择">
 %selectOptions%
               </a-select>
             </a-form-item>
@@ -64,6 +64,7 @@
 import EditForm from './EditForm'
 
 const columns = [
+  { title: '序号', dataIndex: 'Id', width: '5%', customRender: (text, record, index) => index + 1 },
 %listColumns%
   { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
 ]

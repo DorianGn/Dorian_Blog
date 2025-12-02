@@ -223,7 +223,7 @@ namespace Coldairarrow.Business.Base_Manage
             {
                 Id = IdHelper.GetId(),
                 UserName = registerInputDTO.UserName,
-                UserType = UserType.User,
+                UserType = 0,
                 Email = registerInputDTO.Email,
                 Password = registerInputDTO.Password.ToMD5String(),
                 CreateTime = DateTime.Now,

@@ -2,14 +2,8 @@
   <a-card :bordered="false">
     <div class="table-operator">
       <a-button v-if="hasPerm('Base_User.Add')" type="primary" icon="plus" @click="hanldleAdd()">新建</a-button>
-      <a-button
-        v-if="hasPerm('Base_User.Delete')"
-        type="primary"
-        icon="minus"
-        @click="handleDelete(selectedRowKeys)"
-        :disabled="!hasSelected()"
-        :loading="loading"
-      >删除</a-button>
+      <a-button v-if="hasPerm('Base_User.Delete')" type="primary" icon="minus" @click="handleDelete(selectedRowKeys)"
+        :disabled="!hasSelected()" :loading="loading">删除</a-button>
     </div>
 
     <div class="table-page-search-wrapper">
@@ -21,25 +15,16 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-button type="primary" @click="() => {this.pagination.current = 1; this.getDataList()}">查询</a-button>
+            <a-button type="primary" @click="() => { this.pagination.current = 1; this.getDataList() }">查询</a-button>
             <a-button style="margin-left: 8px" @click="() => (queryParam = {})">重置</a-button>
           </a-col>
         </a-row>
       </a-form>
     </div>
 
-    <a-table
-      ref="table"
-      :columns="columns"
-      :rowKey="row => row.Id"
-      :dataSource="data"
-      :pagination="pagination"
-      :loading="loading"
-      @change="handleTableChange"
-      :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-      :bordered="true"
-      size="small"
-    >
+    <a-table ref="table" :columns="columns" :rowKey="row => row.Id" :dataSource="data" :pagination="pagination"
+      :loading="loading" @change="handleTableChange"
+      :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }" :bordered="true" size="small">
       <span slot="action" slot-scope="text, record">
         <template>
           <template v-if="hasPerm('Base_User.Edit')">
@@ -61,10 +46,14 @@ import EditForm from './EditForm'
 const columns = [
   { title: '用户名', dataIndex: 'UserName', width: '10%' },
   { title: '姓名', dataIndex: 'RealName', width: '10%' },
-  { title: '性别', dataIndex: 'SexText', width: '5%' },
-  { title: '出生日期', dataIndex: 'BirthdayText', width: '10%' },
-  { title: '所属部门', dataIndex: 'DepartmentName', width: '10%' },
-  { title: '所属角色', dataIndex: 'RoleNames', width: '30%' },
+  // { title: '性别', dataIndex: 'SexText', width: '5%' },
+  // { title: '出生日期', dataIndex: 'BirthdayText', width: '10%' },
+  { title: '角色', dataIndex: 'UserType', width: '10%',customRender: (text) => {
+    const statusMap = { 0: '普通用户', 1: '游客', 2: '一级管理员',3:'超级管理员',4:'作者' }
+      return statusMap[text] || '未知'
+  }  },
+  // { title: '所属部门', dataIndex: 'DepartmentName', width: '10%' },
+  { title: '权限', dataIndex: 'RoleNames', width: '30%' },
   { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
 ]
 
@@ -72,10 +61,10 @@ export default {
   components: {
     EditForm
   },
-  mounted () {
+  mounted() {
     this.getDataList()
   },
-  data () {
+  data() {
     return {
       data: [],
       pagination: {
@@ -93,13 +82,13 @@ export default {
     }
   },
   methods: {
-    handleTableChange (pagination, filters, sorter) {
+    handleTableChange(pagination, filters, sorter) {
       this.pagination = { ...pagination }
       this.filters = { ...filters }
       this.sorter = { ...sorter }
       this.getDataList()
     },
-    getDataList () {
+    getDataList() {
       this.selectedRowKeys = []
 
       this.loading = true
@@ -120,30 +109,30 @@ export default {
           this.pagination = pagination
         })
     },
-    onSelectChange (selectedRowKeys) {
+    onSelectChange(selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
     },
-    hasSelected () {
+    hasSelected() {
       return this.selectedRowKeys.length > 0
     },
-    hanldleAdd () {
+    hanldleAdd() {
       this.$refs.editForm.openForm()
     },
-    handleEdit (id) {
+    handleEdit(id) {
       this.$refs.editForm.openForm(id)
     },
-    handleDelete (ids) {
+    handleDelete(ids) {
       var thisObj = this
       this.$confirm({
         title: '确认删除吗?',
-        onOk () {
+        onOk() {
           return new Promise((resolve, reject) => {
             thisObj.submitDelete(ids, resolve, reject)
           }).catch(() => console.log('Oops errors!'))
         }
       })
     },
-    submitDelete (ids, resolve, reject) {
+    submitDelete(ids, resolve, reject) {
       this.$http.post('/Base_Manage/Base_User/DeleteData', ids).then(resJson => {
         resolve()
 

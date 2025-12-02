@@ -17,10 +17,18 @@
             placeholder="请上传图片" />
         </a-form-model-item>
         <a-form-model-item label="分类" prop="CategoryId">
-          <a-input v-model="entity.CategoryId" autocomplete="off" placeholder="请输入分类ID" />
+          <a-select v-model="entity.CategoryId" placeholder="请选择文章分类" show-search :filter-option="filterOption">
+            <a-select-option v-for="category in categoryList" :key="category.Id" :value="category.Id">
+              {{ category.Name }}
+            </a-select-option>
+          </a-select>
         </a-form-model-item>
         <a-form-model-item label="作者" prop="AuthorId">
-          <a-input v-model="entity.AuthorId" autocomplete="off" placeholder="请输入作者ID" />
+          <a-select v-model="entity.AuthorId" placeholder="请选择作者" show-search :filter-option="filterOption">
+            <a-select-option v-for="user in userList" :key="user.Id" :value="user.Id">
+              {{ user.UserName }}
+            </a-select-option>
+          </a-select>
         </a-form-model-item>
         <a-form-model-item label="文章状态" prop="Status">
           <a-select v-model="entity.Status" placeholder="请选择文章状态">
@@ -87,6 +95,8 @@ export default {
       visible: false,
       loading: false,
       entity: {},
+      categoryList: [], // 分类列表
+      userList: [], // 用户列表
       rules: {
         Title: [
           { required: true, message: '请输入文章标题', trigger: 'blur' },
@@ -104,10 +114,10 @@ export default {
           { type: 'url', message: '请输入正确的URL格式', trigger: 'blur' }
         ],
         CategoryId: [
-          { required: true, message: '请输入分类ID', trigger: 'blur' }
+          { required: true, message: '请选择文章分类', trigger: 'change' }
         ],
         AuthorId: [
-          { required: true, message: '请输入作者ID', trigger: 'blur' }
+          { required: true, message: '请选择作者', trigger: 'change' }
         ],
         Status: [
           { required: true, message: '请选择文章状态', trigger: 'change', type: 'number' }
@@ -145,25 +155,63 @@ export default {
       this.entity.PublishTime = val ? val.format('YYYY-MM-DD HH:mm:ss') : null
     }
   },
+  mounted() {
+    // 页面加载时获取分类和用户列表
+    this.loadCategories()
+    this.loadUsers()
+  },
   methods: {
+    // 下拉选择框搜索过滤
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      )
+    },
+    // 加载分类列表
+    async loadCategories() {
+      try {
+        const res = await this.$http.post('/Blog_Manage/blog_category/GetDataList', {
+          PageIndex: 1,
+          PageRows: 9999,
+          SortField: 'SortIndex',
+          SortType: 'asc',
+        })
+        if (res.Success && res.Data) {
+          this.categoryList = res.Data.filter(item => item.Status === 1 && item.IsDeleted === 0)
+        } else {
+          console.error('加载分类失败:', res.Msg)
+        }
+      } catch (error) {
+        console.error('加载分类列表失败:', error)
+      }
+    },
+    // 加载用户列表
+    async loadUsers() {
+      try {
+        const res = await this.$http.post('/Base_Manage/Base_User/GetDataList', {
+          PageIndex: 1,
+          PageRows: 9999,
+          SortField: 'Id',
+          SortType: 'asc',
+          Search: {
+            all: false,      
+            keyword: '',     
+            userId: ''     
+          }
+        })
+        if (res.Success && res.Data) {
+          this.userList = res.Data.filter(item => item.UserType === 4)
+        } else {
+          console.error('加载用户失败:', res.Msg)
+        }
+      } catch (error) {
+        console.error('加载用户列表失败:', error)
+      }
+    },
     init() {
       this.visible = true
       this.entity = {
         Title: '',
-        Summary: '',
-        Content: '',
-        CoverImage: '',
-        CategoryId: '',
-        AuthorId: '',
-        Status: 0,
-        IsTop: 0,
-        IsRecommend: 0,
-        AllowComment: 1,
-        IsDeleted: 0,
-        ViewCount: 0,
-        LikeCount: 0,
-        CommentCount: 0,
-        PublishTime: null
       }
       this.publishTimeValue = null
       this.$nextTick(() => {
@@ -171,9 +219,8 @@ export default {
       })
     },
     openForm(id, title) {
-      this.init()  // 先重置
+      this.init()  
       this.title = title
-
       if (id) {
         this.loading = true
         this.$http.post('/Blog_Manage/blog_article/GetTheData', { id: id }).then(resJson => {
@@ -185,8 +232,6 @@ export default {
           } else {
             this.publishTimeValue = null
           }
-
-          // 确保图片组件正确刷新显示
           this.$nextTick(() => {
             if (this.$refs.coverImageUpload && this.entity.CoverImage) {
               this.$refs.coverImageUpload.refresh(this.entity.CoverImage)
@@ -227,17 +272,6 @@ export default {
           this.loading = false
           this.$message.error('操作失败：' + error.message, 3)
         }
-        // this.$http.post('/Blog_Manage/blog_article/SaveData', this.entity).then(resJson => {
-        //   this.loading = false
-        //   if (resJson.Success) {
-        //     this.$message.success('操作成功!', 3)
-        //     this.visible = false
-        //     this.$emit('success')
-        //     this.parentObj.getDataList()
-        //   } else {
-        //     this.$message.error(resJson.Msg, 3)
-        //   }
-        // })
       })
     }
   }

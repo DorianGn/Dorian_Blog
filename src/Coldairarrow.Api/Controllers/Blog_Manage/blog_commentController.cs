@@ -9,31 +9,31 @@ using System.Threading.Tasks;
 namespace Coldairarrow.Api.Controllers.Blog_Manage
 {
     [Route("/Blog_Manage/[controller]/[action]")]
-    public class blog_articleController : BaseApiController
+    public class blog_commentController : BaseApiController
     {
         #region DI
 
-        public blog_articleController(Iblog_articleBusiness blog_articleBus)
+        public blog_commentController(Iblog_commentBusiness blog_commentBus)
         {
-            _blog_articleBus = blog_articleBus;
+            _blog_commentBus = blog_commentBus;
         }
 
-        Iblog_articleBusiness _blog_articleBus { get; }
+        Iblog_commentBusiness _blog_commentBus { get; }
 
         #endregion
 
         #region 获取
 
         [HttpPost]
-        public async Task<PageResult<Blog_ArticleDTO>> GetDataList(PageInput<Entity.DTO.Blog_Manage.ConditionDTO> input)
+        public async Task<PageResult<Blog_CommentDTO>> GetDataList(PageInput<Entity.DTO.Blog_Manage.ConditionDTO> input)
         {
-            return await _blog_articleBus.GetDataListAsync(input);
+            return await _blog_commentBus.GetDataListAsync(input);
         }
 
         [HttpPost]
-        public async Task<blog_article> GetTheData(IdInputDTO input)
+        public async Task<blog_comment> GetTheData(IdInputDTO input)
         {
-            return await _blog_articleBus.GetTheDataAsync(input.id);
+            return await _blog_commentBus.GetTheDataAsync(input.id);
         }
 
         #endregion
@@ -41,26 +41,24 @@ namespace Coldairarrow.Api.Controllers.Blog_Manage
         #region 提交
 
         [HttpPost]
-        public async Task SaveData(blog_article data)
+        public async Task SaveData(blog_comment data)
         {
             if (data.Id.IsNullOrEmpty())
             {
                 InitEntity(data);
 
-                await _blog_articleBus.AddDataAsync(data);
+                await _blog_commentBus.AddDataAsync(data);
             }
             else
             {
-                UpdateEntity(data);
-
-                await _blog_articleBus.UpdateDataAsync(data);
+                await _blog_commentBus.UpdateDataAsync(data);
             }
         }
 
         [HttpPost]
         public async Task DeleteData(List<string> ids)
         {
-            await _blog_articleBus.DeleteDataAsync(ids);
+            await _blog_commentBus.DeleteDataAsync(ids);
         }
 
         #endregion
