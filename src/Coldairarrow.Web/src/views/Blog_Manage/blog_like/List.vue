@@ -1,37 +1,46 @@
 ﻿<template>
   <a-card :bordered="false">
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="hanldleAdd()">新建</a-button>
-      <a-button type="primary" icon="minus" @click="handleDelete(selectedRowKeys)" :disabled="!hasSelected()"
-        :loading="loading">删除</a-button>
-      <a-button type="primary" icon="redo" @click="getDataList()">刷新</a-button>
+        <a-button type="primary" icon="plus" @click="hanldleAdd()">新建</a-button>
+        <a-button type="danger" icon="delete" @click="handleDelete(selectedRowKeys)" :disabled="!hasSelected()"
+          :loading="loading" style="margin-left: 8px;">删除</a-button>
+        <a-button  icon="redo" style="margin-left: 8px;" @click="getDataList()">刷新</a-button>
+        <span v-if="hasSelected()" style="margin-left: 16px; color: #1890ff;">
+          已选择 {{ selectedRowKeys.length }} 项
+        </span>
     </div>
 
-    <div class="table-page-search-wrapper">
+    <div class="table-page-search-wrapper"
+      style="background: #f5f5f5; padding: 16px; border-radius: 4px; margin-bottom: 16px;">
       <a-form layout="inline">
-        <a-row :gutter="10">
-          <a-col :md="4" :sm="24">
-            <a-form-item label="查询类别">
-              <a-select allowClear v-model="queryParam.condition" placeholder="请选择">
-                <a-select-option value="ArticleTitle">文章</a-select-option>
-                <a-select-option value="UserName">用户</a-select-option>
-              </a-select>
+        <a-row :gutter="16">
+          <a-col :xxl="8" :xl="10" :lg="12" :md="24" :sm="24">
+            <a-form-item label="关键字查询" style="width: 100%;">
+              <a-input-group compact>
+                <a-select allowClear v-model="queryParam.condition" placeholder="请选择" style="width: 30%;">
+                  <a-select-option value="ArticleTitle">文章</a-select-option>
+                  <a-select-option value="UserName">用户</a-select-option>
+                </a-select>
+                <a-input style="width: 70%;" allow-clear v-model="queryParam.keyword" placeholder="请输入查询关键字"
+                  @pressEnter="handleSearch" />
+              </a-input-group>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24">
-            <a-form-item>
-              <a-input v-model="queryParam.keyword" placeholder="关键字" />
-            </a-form-item>
-          </a-col>
-          <a-col :md="8" :sm="24">
-            <a-form-item label="点赞时间">
+          <a-col :xxl="8" :xl="8" :lg="12" :md="24" :sm="24">
+            <a-form-item label="点赞时间" style="width: 100%;">
               <a-range-picker v-model="dateRange" format="YYYY-MM-DD" :placeholder="['开始日期', '结束日期']"
                 style="width: 100%" @change="handleDateChange" />
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="24">
-            <a-button type="primary" @click="() => { this.pagination.current = 1; this.getDataList() }">查询</a-button>
-            <a-button style="margin-left: 8px" @click="handleReset">重置</a-button>
+          <a-col :xxl="4" :xl="4" :lg="6" :md="12" :sm="12">
+            <a-form-item label=" " :colon="false">
+              <a-button type="primary" icon="search" @click="handleSearch">
+                查询
+              </a-button>
+              <a-button icon="reload" @click="handleReset" style="margin-left: 2px;">
+                重置
+              </a-button>
+            </a-form-item>
           </a-col>
         </a-row>
       </a-form>
@@ -39,7 +48,8 @@
 
     <a-table ref="table" :columns="columns" :rowKey="row => row.Id" :dataSource="data" :pagination="pagination"
       :loading="loading" @change="handleTableChange"
-      :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }" :bordered="true" size="small">
+      :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }" :bordered="true" size="middle"
+      :locale="{ emptyText: '暂无数据' }">
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record.Id)">编辑</a>
@@ -57,16 +67,16 @@
 import EditForm from './EditForm'
 
 const columns = [
-  { title: '序号', dataIndex: 'Id', width: '5%', customRender: (text, record, index) => index + 1 },
+  { title: '序号', dataIndex: 'Id', align:'center', width: '5%', customRender: (text, record, index) => index + 1 },
   { title: '文章', dataIndex: 'ArticleTitle', width: '20%' },
-  { title: '用户', dataIndex: 'UserName', width: '10%' },
+  { title: '用户', dataIndex: 'UserName',align:'center', width: '10%' },
   {
-    title: '点赞时间', dataIndex: 'CreatedTime', width: '15%', customRender: (text) => {
+    title: '点赞时间', dataIndex: 'CreatedTime', width: '15%', align:'center', customRender: (text) => {
       if (!text) return '-'
       return text.replace(/\.\d{3}$/, '')
     }
   },
-  { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
+  { title: '操作', dataIndex: 'action', align:'center', scopedSlots: { customRender: 'action' } }
 ]
 
 export default {
@@ -90,10 +100,19 @@ export default {
       columns,
       queryParam: {},
       selectedRowKeys: [],
-      dateRange: [] 
+      dateRange: []
     }
   },
   methods: {
+    handleSearch() {
+      this.pagination.current = 1
+      this.getDataList()
+    },
+    handleReset() {
+      this.queryParam = { condition: 'Title' }
+      this.pagination.current = 1
+      this.getDataList()
+    },
     handleTableChange(pagination, filters, sorter) {
       this.pagination = { ...pagination }
       this.filters = { ...filters }
@@ -141,9 +160,13 @@ export default {
     handleEdit(id) {
       this.$refs.editForm.openForm(id, '编辑点赞')
     },
+    handleSearch() {
+      this.pagination.current = 1
+      this.getDataList()
+    },
     handleReset() {
       this.queryParam = {}
-      this.dateRange = [] 
+      this.dateRange = []
       this.pagination.current = 1
       this.getDataList()
     },

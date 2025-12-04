@@ -247,8 +247,7 @@ export default {
       const newValue = this.maxCount === 1 ? (urls[0] || '') : urls
       this.internelValue = newValue
       this.$emit('input', newValue)
-
-      console.log('getCurrentValue 返回:', newValue)
+      // console.log('getCurrentValue 返回:', newValue)
       return newValue
     }
   }

@@ -1,79 +1,254 @@
 ﻿<template>
-  <a-modal :title="title" width="70%" :visible="visible" :confirmLoading="loading" @ok="handleSubmit"
-    @cancel="() => { this.visible = false }" :bodyStyle="{ maxHeight: '70vh', overflowY: 'auto' }">
+  <a-modal 
+    :title="title" 
+    width="60%" 
+    :visible="visible" 
+    :confirmLoading="loading" 
+    @ok="handleSubmit"
+    @cancel="() => { this.visible = false }" 
+    :bodyStyle="{ maxHeight: '75vh', overflowY: 'auto', padding: '24px' }">
     <a-spin :spinning="loading">
-      <a-form-model ref="form" :model="entity" :rules="rules" v-bind="layout">
-        <a-form-model-item label="文章标题" prop="Title">
-          <a-input v-model="entity.Title" autocomplete="off" placeholder="请输入文章标题" />
-        </a-form-model-item>
-        <a-form-model-item label="文章摘要" prop="Summary">
-          <a-textarea v-model="entity.Summary" autocomplete="off" placeholder="请输入文章摘要" :rows="3" />
-        </a-form-model-item>
-        <a-form-model-item label="文章内容" prop="Content">
-          <WangEditor v-model="entity.Content" autocomplete="off" />
-        </a-form-model-item>
-        <a-form-model-item label="封面图片" prop="CoverImage">
-          <c-upload-img ref="coverImageUpload" v-model="entity.CoverImage" :maxCount="1" autocomplete="off"
-            placeholder="请上传图片" />
-        </a-form-model-item>
-        <a-form-model-item label="分类" prop="CategoryId">
-          <a-select v-model="entity.CategoryId" placeholder="请选择文章分类" show-search :filter-option="filterOption">
-            <a-select-option v-for="category in categoryList" :key="category.Id" :value="category.Id">
-              {{ category.Name }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="作者" prop="AuthorId">
-          <a-select v-model="entity.AuthorId" placeholder="请选择作者" show-search :filter-option="filterOption">
-            <a-select-option v-for="user in userList" :key="user.Id" :value="user.Id">
-              {{ user.UserName }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="文章状态" prop="Status">
-          <a-select v-model="entity.Status" placeholder="请选择文章状态">
-            <a-select-option :value="0">草稿 </a-select-option>
-            <a-select-option :value="1">已发布 </a-select-option>
-            <a-select-option :value="2">已隐藏 </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="是否置顶" prop="IsTop">
-          <a-select v-model="entity.IsTop" placeholder="请选择是否置顶">
-            <a-select-option :value="0">否 </a-select-option>
-            <a-select-option :value="1">是 </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="是否推荐" prop="IsRecommend">
-          <a-select v-model="entity.IsRecommend" placeholder="请选择是否推荐">
-            <a-select-option :value="0">否 </a-select-option>
-            <a-select-option :value="1">是 </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="是否允许评论" prop="AllowComment">
-          <a-select v-model="entity.AllowComment" placeholder="请选择是否允许评论">
-            <a-select-option :value="0">否 </a-select-option>
-            <a-select-option :value="1">是 </a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="阅读量" prop="ViewCount">
-          <a-input-number v-model="entity.ViewCount" :min="0" style="width: 100%" placeholder="请输入阅读量" />
-        </a-form-model-item>
-        <a-form-model-item label="点赞数" prop="LikeCount">
-          <a-input-number v-model="entity.LikeCount" :min="0" style="width: 100%" placeholder="请输入点赞数" />
-        </a-form-model-item>
-        <a-form-model-item label="评论数" prop="CommentCount">
-          <a-input-number v-model="entity.CommentCount" :min="0" style="width: 100%" placeholder="请输入评论数" />
-        </a-form-model-item>
-        <a-form-model-item label="发布时间" prop="PublishTime">
-          <a-date-picker v-model="publishTimeValue" show-time format="YYYY-MM-DD HH:mm:ss" style="width: 100%"
-            placeholder="请选择发布时间" />
-        </a-form-model-item>
-        <a-form-model-item label="是否删除" prop="IsDeleted">
-          <a-select v-model="entity.IsDeleted" placeholder="请选择是否删除">
-            <a-select-option :value="0">否 </a-select-option>
-            <a-select-option :value="1">是 </a-select-option>
-          </a-select>
-        </a-form-model-item>
+      <a-form-model ref="form" :model="entity" :rules="rules">
+        
+        <!-- 基本信息 -->
+        <a-divider orientation="left">
+          <span style="font-size: 16px; font-weight: 500;">
+            <a-icon type="file-text" style="margin-right: 8px;" />
+            基本信息
+          </span>
+        </a-divider>
+        
+        <a-row :gutter="16">
+          <a-col :span="24">
+            <a-form-model-item label="文章标题" prop="Title" :label-col="{ span: 3 }" :wrapper-col="{ span: 20 }">
+              <a-input 
+                v-model="entity.Title" 
+                placeholder="请输入文章标题" 
+                allow-clear
+                :maxLength="100">
+                <a-icon slot="prefix" type="edit" style="color: rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="24">
+            <a-form-model-item label="文章摘要" prop="Summary" :label-col="{ span: 3 }" :wrapper-col="{ span: 20 }">
+              <a-textarea 
+                v-model="entity.Summary" 
+                placeholder="请输入文章摘要（选填）" 
+                :rows="3" 
+                allow-clear
+                :maxLength="500"
+                show-count />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="24">
+            <a-form-model-item label="文章内容" prop="Content" :label-col="{ span: 3 }" :wrapper-col="{ span: 20 }">
+              <WangEditor v-model="entity.Content" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="24">
+            <a-form-model-item label="封面图片" prop="CoverImage" :label-col="{ span: 3 }" :wrapper-col="{ span: 20 }">
+              <c-upload-img 
+                ref="coverImageUpload" 
+                v-model="entity.CoverImage" 
+                :maxCount="1" 
+                placeholder="请上传封面图片（选填）" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="12">
+            <a-form-model-item label="文章分类" prop="CategoryId" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-select 
+                v-model="entity.CategoryId" 
+                placeholder="请选择文章分类" 
+                show-search 
+                :filter-option="filterOption">
+                <a-icon slot="suffixIcon" type="folder" />
+                <a-select-option v-for="category in categoryList" :key="category.Id" :value="category.Id">
+                  {{ category.Name }}
+                </a-select-option>
+              </a-select>
+            </a-form-model-item>
+          </a-col>
+          
+          <a-col :span="12">
+            <a-form-model-item label="文章作者" prop="AuthorId" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-select 
+                v-model="entity.AuthorId" 
+                placeholder="请选择作者" 
+                show-search 
+                :filter-option="filterOption">
+                <a-icon slot="suffixIcon" type="user" />
+                <a-select-option v-for="user in userList" :key="user.Id" :value="user.Id">
+                  {{ user.UserName }}
+                </a-select-option>
+              </a-select>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <!-- 发布设置 -->
+        <a-divider orientation="left">
+          <span style="font-size: 16px; font-weight: 500;">
+            <a-icon type="setting" style="margin-right: 8px;" />
+            发布设置
+          </span>
+        </a-divider>
+        <a-row :gutter="16">
+          <a-col :span="12">
+            <a-form-model-item label="文章状态" prop="Status" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-select v-model="entity.Status" placeholder="请选择文章状态">
+                <a-select-option :value="0">
+                  <a-tag color="orange">草稿</a-tag>
+                </a-select-option>
+                <a-select-option :value="1">
+                  <a-tag color="green">已发布</a-tag>
+                </a-select-option>
+                <a-select-option :value="2">
+                  <a-tag color="red">已隐藏</a-tag>
+                </a-select-option>
+              </a-select>
+            </a-form-model-item>
+          </a-col>
+          
+          <a-col :span="12">
+            <a-form-model-item label="发布时间" prop="PublishTime" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-date-picker 
+                v-model="publishTimeValue" 
+                show-time 
+                format="YYYY-MM-DD HH:mm:ss" 
+                style="width: 100%"
+                placeholder="请选择发布时间（选填）">
+                <a-icon slot="suffixIcon" type="clock-circle" />
+              </a-date-picker>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="12">
+            <a-form-model-item label="是否置顶" prop="IsTop" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-switch 
+                :checked="entity.IsTop === 1"
+                @change="(checked) => entity.IsTop = checked ? 1 : 0"
+                checked-children="开" 
+                un-checked-children="关">
+                <a-icon slot="checkedChildren" type="pushpin" />
+                <a-icon slot="unCheckedChildren" type="pushpin" />
+              </a-switch>
+              <span style="margin-left: 12px; color: #f5222d;" v-if="entity.IsTop === 1">
+                <a-icon type="fire" /> 已置顶
+              </span>
+              <span style="margin-left: 12px; color: #999;" v-else>
+                未置顶
+              </span>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-model-item label="是否推荐" prop="IsRecommend" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-switch 
+                :checked="entity.IsRecommend === 1"
+                @change="(checked) => entity.IsRecommend = checked ? 1 : 0"
+                checked-children="开" 
+                un-checked-children="关">
+                <a-icon slot="checkedChildren" type="star" />
+                <a-icon slot="unCheckedChildren" type="star" />
+              </a-switch>
+              <span style="margin-left: 12px; color: #1890ff;" v-if="entity.IsRecommend === 1">
+                <a-icon type="star" theme="filled" /> 已推荐
+              </span>
+              <span style="margin-left: 12px; color: #999;" v-else>
+                未推荐
+              </span>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="16">
+          <a-col :span="12">
+            <a-form-model-item label="允许评论" prop="AllowComment" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-switch 
+                :checked="entity.AllowComment === 1"
+                @change="(checked) => entity.AllowComment = checked ? 1 : 0"
+                checked-children="开" 
+                un-checked-children="关">
+                <a-icon slot="checkedChildren" type="message" />
+                <a-icon slot="unCheckedChildren" type="message" />
+              </a-switch>
+              <span style="margin-left: 12px; color: #52c41a;" v-if="entity.AllowComment === 1">
+                <a-icon type="check-circle" /> 允许评论
+              </span>
+              <span style="margin-left: 12px; color: #999;" v-else>
+                <a-icon type="close-circle" /> 禁止评论
+              </span>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-model-item label="是否删除" prop="IsDeleted" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }">
+              <a-switch 
+                :checked="entity.IsDeleted === 1"
+                @change="(checked) => entity.IsDeleted = checked ? 1 : 0"
+                checked-children="是" 
+                un-checked-children="否">
+                <a-icon slot="checkedChildren" type="delete" />
+                <a-icon slot="unCheckedChildren" type="check" />
+              </a-switch>
+              <span style="margin-left: 12px; color: #f5222d;" v-if="entity.IsDeleted === 1">
+                <a-icon type="exclamation-circle" /> 已删除
+              </span>
+              <span style="margin-left: 12px; color: #52c41a;" v-else>
+                <a-icon type="check-circle" /> 正常
+              </span>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <!-- 数据统计 -->
+        <a-divider orientation="left">
+          <span style="font-size: 16px; font-weight: 500;">
+            <a-icon type="bar-chart" style="margin-right: 8px;" />
+            数据统计
+          </span>
+        </a-divider>
+        <a-row :gutter="16">
+          <a-col :span="8">
+            <a-form-model-item label="阅读量" prop="ViewCount" :label-col="{ span: 9 }" :wrapper-col="{ span: 14 }">
+              <a-input-number 
+                v-model="entity.ViewCount" 
+                :min="0" 
+                style="width: 100%" 
+                placeholder="阅读量">
+                <a-icon slot="prefix" type="eye" style="color: #1890ff;" />
+              </a-input-number>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-model-item label="点赞数" prop="LikeCount" :label-col="{ span: 9 }" :wrapper-col="{ span: 14 }">
+              <a-input-number 
+                v-model="entity.LikeCount" 
+                :min="0" 
+                style="width: 100%" 
+                placeholder="点赞数">
+                <a-icon slot="prefix" type="like" style="color: #f5222d;" />
+              </a-input-number>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-model-item label="评论数" prop="CommentCount" :label-col="{ span: 9 }" :wrapper-col="{ span: 14 }">
+              <a-input-number 
+                v-model="entity.CommentCount" 
+                :min="0" 
+                style="width: 100%" 
+                placeholder="评论数">
+                <a-icon slot="prefix" type="message" style="color: #52c41a;" />
+              </a-input-number>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        
       </a-form-model>
     </a-spin>
   </a-modal>
@@ -226,7 +401,6 @@ export default {
         this.$http.post('/Blog_Manage/blog_article/GetTheData', { id: id }).then(resJson => {
           this.loading = false
           this.entity = resJson.Data
-
           if (this.entity.PublishTime) {
             this.publishTimeValue = moment(this.entity.PublishTime)
           } else {

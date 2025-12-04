@@ -1,5 +1,5 @@
 ﻿<template>
-  <a-modal :title="title" width="50%" :visible="visible" :confirmLoading="loading" @ok="handleSubmit"
+  <a-modal :title="title" width="40%" :visible="visible" :confirmLoading="loading" @ok="handleSubmit"
     :bodyStyle="{ maxHeight: '70vh', overflowY: 'auto' }" @cancel="() => { this.visible = false }">
     <a-spin :spinning="loading">
       <a-form-model ref="form" :model="entity" :rules="rules" v-bind="layout">
