@@ -270,7 +270,6 @@ export default {
         this.entity.ReplyToUserId = undefined
       }
     },
-
     // 取消
     handleCancel() {
       this.visible = false
@@ -317,7 +316,6 @@ export default {
       tmp.innerHTML = html
       return tmp.textContent || tmp.innerText || ''
     },
-
     // 评论搜索过滤
     filterComment(input, option) {
       const text = option.componentOptions.children[0].elm.innerText || ''

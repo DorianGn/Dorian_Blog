@@ -1,6 +1,7 @@
 ﻿using Coldairarrow.Business.Blog_Manage;
 using Coldairarrow.Entity.Blog_Manage;
 using Coldairarrow.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,12 +25,14 @@ namespace Coldairarrow.Api.Controllers.Blog_Manage
         #region 获取
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<PageResult<blog_category>> GetDataList(PageInput<Entity.DTO.Blog_Manage.ConditionDTO> input)
         {
             return await _blog_categoryBus.GetDataListAsync(input);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<blog_category> GetTheData(IdInputDTO input)
         {
             return await _blog_categoryBus.GetTheDataAsync(input.id);
