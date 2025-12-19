@@ -34,6 +34,14 @@ namespace Coldairarrow.Business
             var properties = _validateFields
                 .Where(x => !data.GetPropertyValue(x.Key).IsNullOrEmpty())
                 .ToList();
+
+            // 如果没有需要验证的字段，跳过验证
+            if (properties.Count == 0)
+            {
+                await Task.CompletedTask;
+                return;
+            }
+
             properties.ForEach((aProperty, index) =>
             {
                 whereList.Add($" {aProperty.Key} = @{index} ");

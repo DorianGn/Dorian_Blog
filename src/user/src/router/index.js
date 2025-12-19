@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import { getToken } from '@/utils/auth'
 
 Vue.use(VueRouter)
 
@@ -9,13 +10,23 @@ const originalReplace = VueRouter.prototype.replace
 
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => {
-    if (err.name !== 'NavigationDuplicated') throw err
+    if (err.name === 'NavigationDuplicated' ||
+        err.name === 'NavigationCancelled' ||
+        err.name === 'NavigationRedirected') {
+      return err
+    }
+    throw err
   })
 }
 
 VueRouter.prototype.replace = function replace(location) {
   return originalReplace.call(this, location).catch(err => {
-    if (err.name !== 'NavigationDuplicated') throw err
+    if (err.name === 'NavigationDuplicated' ||
+        err.name === 'NavigationCancelled' ||
+        err.name === 'NavigationRedirected') {
+      return err
+    }
+    throw err
   })
 }
 
@@ -29,16 +40,39 @@ const routes = [
         name: 'Home',
         component: () => import('@/views/Home/Index.vue'),
         meta: { title: '首页' }
+      },
+      {
+        path: 'articles',
+        name: 'ArticleList',
+        component: () => import('@/views/Article/List.vue'),
+        meta: { title: '文章' }
+      },
+      {
+        path: 'article/:id',
+        name: 'ArticleDetail',
+        component: () => import('@/views/Article/Detail.vue'),
+        meta: { title: '文章详情' }
+      },
+      {
+        path: 'about',
+        name: 'About',
+        component: () => import('@/views/About/Index.vue'),
+        meta: { title: '关于' }
+      },
+      {
+        path: 'archive',
+        name: 'Archive',
+        component: () => import('@/views/Archive/Index.vue'),
+        meta: { title: '归档' }
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/User/Profile.vue'),
+        meta: { title: '个人中心', requiresAuth: true }
       }
-      // 注意：如果要添加更多路由，在上面的 } 后面加逗号，例如：
-      // {
-      //   path: 'articles',
-      //   name: 'ArticleList',
-      //   component: () => import('@/views/Article/List.vue'),
-      //   meta: { title: '文章列表' }
-      // }
-    ] // ← children 数组闭合，不能注释
-  }, // ← 第一个路由对象闭合，不能注释
+    ]
+  },
   {
     path: '/login',
     name: 'Login',
@@ -51,12 +85,6 @@ const routes = [
       return { path: '/login', query: { mode: 'register' } }
     }
   },
-  // {
-  //   path: '/profile',
-  //   name: 'Profile',
-  //   component: () => import('@/views/User/Profile.vue'),
-  //   meta: { title: '个人中心', requiresAuth: true }
-  // },
   {
     path: '/404',
     name: 'NotFound',
@@ -87,7 +115,7 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title || '我的博客'
 
   if (to.meta.requiresAuth) {
-    const token = localStorage.getItem('token')
+    const token = getToken()
     if (!token) {
       next({
         path: '/login',

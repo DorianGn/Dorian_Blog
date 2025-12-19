@@ -22,6 +22,12 @@ const mutations = {
   }
 }
 
+const getters = {
+  isLogin: state => state.isLogin,
+  userInfo: state => state.userInfo,
+  token: state => state.token
+}
+
 const actions = {
   // 登录
   async login ({ commit }, loginForm) {
@@ -40,8 +46,10 @@ const actions = {
   async getUserInfo ({ commit }) {
     const res = await getUserInfo()
     if (res.Success) {
-      commit('SET_USER_INFO', res.Data)
-      return res.Data
+      // 后端返回 { UserInfo, Permissions }，只取 UserInfo
+      const userInfo = res.Data.UserInfo || res.Data
+      commit('SET_USER_INFO', userInfo)
+      return userInfo
     } else {
       throw new Error(res.Msg)
     }
@@ -57,6 +65,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 }

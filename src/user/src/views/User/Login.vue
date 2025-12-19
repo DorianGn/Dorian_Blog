@@ -11,19 +11,19 @@
           <el-form-item prop="userName">
             <div class="input-field">
               <i class="el-icon-user"></i>
-              <input v-model="loginForm.userName" type="text" placeholder="请输入用户名" @keyup.enter="handleLogin">
+              <input v-model="loginForm.userName" type="text" placeholder="请输入用户名">
             </div>
           </el-form-item>
 
           <el-form-item prop="password">
             <div class="input-field">
               <i class="el-icon-lock"></i>
-              <input v-model="loginForm.password" type="password" placeholder="请输入密码" @keyup.enter="handleLogin">
+              <input v-model="loginForm.password" type="password" placeholder="请输入密码">
             </div>
           </el-form-item>
           <el-form-item prop="captcha">
             <div class="input-field input-field-captcha">
-              <i class="el-icon-picture-outline"></i>
+              <i class="el-icon-key"></i>
               <input v-model="loginForm.captcha" type="text" placeholder="请输入验证码" maxlength="4" @keyup.enter="handleLogin">
               <Captcha ref="captchaRef" />
             </div>
@@ -95,7 +95,7 @@
             立即注册
           </button>
         </div>
-        <img src="@/assets/images/undraw_enter_nwx3.svg" class="image" alt="注册">
+        <img src="@/assets/images/b.svg" class="image" alt="注册">
       </div>
 
       <!-- 右侧面板 - 登录引导 -->
@@ -111,7 +111,7 @@
             返回登录
           </button>
         </div>
-        <img src="@/assets/images/undraw_secure-login_m11a.svg" class="image" alt="登录">
+        <img src="@/assets/images/n.svg" class="image" alt="登录">
       </div>
     </div>
   </div>
@@ -236,7 +236,7 @@ export default {
           const redirect = this.$route.query.redirect || '/'
           this.$router.push(redirect)
         } catch (error) {
-          this.$message.error(error.message || '登录失败')
+          // 错误消息已在 request 拦截器中统一处理
           this.$refs.captchaRef.refreshCode()
           this.loginForm.captcha = ''
         } finally {
