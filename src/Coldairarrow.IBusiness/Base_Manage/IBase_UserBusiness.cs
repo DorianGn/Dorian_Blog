@@ -37,7 +37,7 @@ namespace Coldairarrow.Business.Base_Manage
     {
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string VerifyCode { get; set; }
+        public string Code { get; set; }
         public string Password { get; set; }
     }
 }

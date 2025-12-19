@@ -4,6 +4,21 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push
+const originalReplace = VueRouter.prototype.replace
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => {
+    if (err.name !== 'NavigationDuplicated') throw err
+  })
+}
+
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => {
+    if (err.name !== 'NavigationDuplicated') throw err
+  })
+}
+
 const routes = [
   {
     path: '/',
@@ -30,12 +45,12 @@ const routes = [
     component: () => import('@/views/User/Login.vue'),
     meta: { title: '登录' }
   },
-  // {
-  //   path: '/register',
-  //   name: 'Register',
-  //   component: () => import('@/views/User/Register.vue'),
-  //   meta: { title: '注册' }
-  // },
+  {
+    path: '/register',
+    redirect: to => {
+      return { path: '/login', query: { mode: 'register' } }
+    }
+  },
   // {
   //   path: '/profile',
   //   name: 'Profile',
@@ -58,7 +73,7 @@ const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {

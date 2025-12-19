@@ -198,7 +198,7 @@ export default {
     toggle() {
       this.visible = !this.visible
     },
-    openDrawer(){
+    openDrawer() {
       this.visible = true
     },
     onColorWeak(checked) {
@@ -271,35 +271,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .setting-drawer-handle {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    background: #1890ff;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    display: none;
-    pointer-events: auto;
-    z-index: 1001;
-    text-align: center;
-    font-size: 16px;
-    border-radius: 4px 0 0 4px;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
-    &:hover {
-      width: 52px;
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
-    }
-    i {
-      color: rgb(255, 255, 255);
-      font-size: 20px;
-    }
+  position: fixed;
+  top: 50%;
+  right: 0;
+  background: #1890ff;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  display: none;
+  pointer-events: auto;
+  z-index: 1001;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 4px 0 0 4px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+
+  &:hover {
+    width: 52px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
   }
+
+  i {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+  }
+}
+
 .setting-drawer-index-content {
 
   .setting-drawer-index-blockChecbox {

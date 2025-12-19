@@ -12,7 +12,6 @@
           技术改变世界
         </div>
       </div>
-
       <route-view></route-view>
     </div>
   </div>

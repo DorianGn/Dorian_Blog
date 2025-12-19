@@ -160,8 +160,6 @@ namespace Coldairarrow.Business.Base_Manage
         #endregion
 
 
-
-
         #region 私有成员
 
         private async Task SetUserRoleAsync(string userId, List<string> roleIds)
@@ -202,7 +200,7 @@ namespace Coldairarrow.Business.Base_Manage
         public async Task RegisterAsync(RegisterInputDTO registerInputDTO)
         {
             // 验证验证码
-            var isValid = await _emailService.VerifyCodeAsync(registerInputDTO.Email, registerInputDTO.VerifyCode);
+            var isValid = await _emailService.VerifyCodeAsync(registerInputDTO.Email, registerInputDTO.Code);
             if (!isValid)
             {
                 throw new BusException("验证码无效或已过期");

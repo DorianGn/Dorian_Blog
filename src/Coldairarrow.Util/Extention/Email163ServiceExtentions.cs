@@ -38,7 +38,7 @@ namespace Coldairarrow.Util
         public async Task<(bool Success, string ErrorMessage)> SendVerificationCodeAsync(
             string toEmail,
             string code,
-            int expiryMinutes = 5)
+            int expiryMinutes = 3)
         {
             // 参数验证
             if (string.IsNullOrWhiteSpace(toEmail))
@@ -168,7 +168,7 @@ namespace Coldairarrow.Util
                                     <body>
                                         <div class='container'>
                                             <div class='header'>
-                                                <h2>🔐 邮箱验证</h2>
+                                                <h2>邮箱验证</h2>
                                             </div>
                                             <p>您好！</p>
                                             <p>您正在进行邮箱验证，您的验证码是：</p>

@@ -1,42 +1,20 @@
 <template>
   <a-layout :class="['layout', device]">
     <!-- SideMenu -->
-    <a-drawer
-      v-if="isMobile()"
-      placement="left"
-      :wrapClassName="`drawer-sider ${navTheme}`"
-      :closable="false"
-      :visible="collapsed"
-      @close="drawerClose">
-      <side-menu
-        mode="inline"
-        :menus="menus"
-        :theme="navTheme"
-        :collapsed="false"
-        :collapsible="true"
+    <a-drawer v-if="isMobile()" placement="left" :wrapClassName="`drawer-sider ${navTheme}`" :closable="false"
+      :visible="collapsed" @close="drawerClose">
+      <side-menu mode="inline" :menus="menus" :theme="navTheme" :collapsed="false" :collapsible="true"
         @menuSelect="menuSelect"></side-menu>
     </a-drawer>
 
-    <side-menu
-      v-else-if="isSideMenu()"
-      mode="inline"
-      :menus="menus"
-      :theme="navTheme"
-      :collapsed="collapsed"
+    <side-menu v-else-if="isSideMenu()" mode="inline" :menus="menus" :theme="navTheme" :collapsed="collapsed"
       :collapsible="true"></side-menu>
 
-    <a-layout
-      :class="[layoutMode, `content-width-${contentWidth}`]"
+    <a-layout :class="[layoutMode, `content-width-${contentWidth}`]"
       :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }">
       <!-- layout header -->
-      <global-header
-        :mode="layoutMode"
-        :menus="menus"
-        :theme="navTheme"
-        :collapsed="collapsed"
-        :device="device"
-        @openSetting="openSetting"
-        @toggle="toggle" />
+      <global-header :mode="layoutMode" :menus="menus" :theme="navTheme" :collapsed="collapsed" :device="device"
+        @openSetting="openSetting" @toggle="toggle" />
 
       <!-- layout content -->
       <a-layout-content :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }">
@@ -63,7 +41,7 @@
         <global-footer />
       </a-layout-footer>-->
 
-      <setting-drawer ref="settingDrawer"/>
+      <setting-drawer ref="settingDrawer" />
     </a-layout>
   </a-layout>
 </template>
@@ -93,7 +71,7 @@ export default {
     GlobalFooter,
     SettingDrawer
   },
-  data () {
+  data() {
     return {
       production: config.production,
       collapsed: false,
@@ -105,7 +83,7 @@ export default {
       // 动态主路由
       mainMenu: state => getAddRouter()
     }),
-    contentPaddingLeft () {
+    contentPaddingLeft() {
       if (!this.fixSidebar || this.isMobile()) {
         return '0'
       }
@@ -116,15 +94,15 @@ export default {
     }
   },
   watch: {
-    sidebarOpened (val) {
+    sidebarOpened(val) {
       this.collapsed = !val
     }
   },
-  created () {
+  created() {
     this.menus = this.mainMenu.find(item => item.path === '/').children
     this.collapsed = !this.sidebarOpened
   },
-  mounted () {
+  mounted() {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -137,12 +115,12 @@ export default {
   },
   methods: {
     ...mapActions(['setSidebar']),
-    toggle () {
+    toggle() {
       this.collapsed = !this.collapsed
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },
-    paddingCalc () {
+    paddingCalc() {
       let left = ''
       if (this.sidebarOpened) {
         left = this.isDesktop() ? '200px' : '80px'
@@ -151,15 +129,15 @@ export default {
       }
       return left
     },
-    menuSelect () {
+    menuSelect() {
       if (!this.isDesktop()) {
         this.collapsed = false
       }
     },
-    drawerClose () {
+    drawerClose() {
       this.collapsed = false
     },
-    openSetting () {
+    openSetting() {
       this.$refs.settingDrawer.openDrawer()
     }
   }

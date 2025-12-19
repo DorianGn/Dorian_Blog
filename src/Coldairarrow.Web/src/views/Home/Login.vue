@@ -1,7 +1,6 @@
 <template>
   <div class="login-container">
     <div class="login-wrapper">
-      <!-- 左侧图片 -->
       <div class="login-left">
         <div class="banner-img-wrapper">
           <img src="@/assets/login_bg.png" alt="登陆" class="banner-img" />
@@ -53,11 +52,6 @@
                 </a-input>
               </a-form-item>
 
-              <!-- 记住用户名 -->
-              <!-- <a-form-item>
-                <a-checkbox v-decorator="['savePwd', { valuePropName: 'checked' }]">记住用户名</a-checkbox>
-              </a-form-item> -->
-
               <!-- 登录按钮 -->
               <a-form-item style="margin-top:24px">
                 <a-button size="large" htmlType="submit" :loading="loginLoading" class="login-button">登录</a-button>
@@ -103,32 +97,11 @@ export default {
     }
   },
   methods: {
-    // handleTabClick (key) {
-    //   this.customActiveKey = key
-
-    //   // 清除验证码倒计时
-    //   if (this.verifyCodeTimer) {
-    //     clearInterval(this.verifyCodeTimer)
-    //     this.verifyCodeCountDown = 0
-    //     this.verifyCodeTimer = null
-    //   }
-
-    //   // 切换标签页时清除表单验证错误
-    //   if (key === 'tab1') {
-    //     // 清除注册相关字段
-    //     this.form.resetFields(['regUserName', 'email', 'verifyCode', 'regPassword', 'confirmPassword'])
-    //   } else {
-    //     // 清除登录相关字段
-    //     this.form.resetFields(['userName', 'password'])
-    //   }
-    // },
-
     validateCaptcha(rule, value, callback) {
       if (!value) {
         callback()
         return
       }
-
       if (this.$refs.captcha && !this.$refs.captcha.verify(value)) {
         callback('验证码错误')
       } else {
@@ -185,107 +158,6 @@ export default {
           })
       })
     },
-    // handleRegister() {
-    //   const registerFields = [
-    //     'regUserName',
-    //     'email',
-    //     'verifyCode',
-    //     'regPassword',
-    //     'confirmPassword'
-    //   ]
-    //   this.form.validateFields(registerFields, (errors, values) => {
-    //     if (errors) return
-    //     const submitValues = this.form.getFieldsValue()
-    //     this.registerLoading = true
-    //     const registerData = {
-    //       userName: submitValues['regUserName'],
-    //       email: submitValues['email'],
-    //       verifyCode: submitValues['verifyCode'],
-    //       password: submitValues['regPassword']
-    //     }
-    //     this.$http.post('/Base_Manage/Base_User/Register', registerData)
-    //       .then(resJson => {
-    //         if (resJson.Success) {
-    //           this.$message.success('注册成功，请登录')
-    //           this.customActiveKey = 'tab1'
-    //           // 清空表单
-    //           this.form.resetFields()
-    //           // 清除验证码倒计时
-    //           if (this.verifyCodeTimer) {
-    //             clearInterval(this.verifyCodeTimer)
-    //             this.verifyCodeCountDown = 0
-    //             this.verifyCodeTimer = null
-    //           }
-    //         } else {
-    //           this.$message.error(resJson.Msg || '注册失败')
-    //         }
-    //       })
-    //       .catch(error => {
-    //         this.$message.error('注册失败，请检查网络连接')
-    //         console.error('注册错误:', error)
-    //       })
-    //       .finally(() => {
-    //         this.registerLoading = false
-    //       })
-    //   })
-    // },
-    // sendVerifyCode() {
-    //   this.form.validateFields(['email'], err => {
-    //     if (err) return
-    //     const email = this.form.getFieldValue('email')
-    //     if (!email) {
-    //       this.$message.error('请先输入邮箱地址')
-    //       return
-    //     }
-    //     this.verifyCodeLoading = true
-    //     this.$http.post('/Base_Manage/Base_User/SendVerifyCode', {
-    //       email: email,
-    //       type: 'register'
-    //     })
-    //       .then(response => {
-    //         if (response.Success) {
-    //           this.$message.success('验证码已发送到您的邮箱，请查收')
-    //           this.startVerifyCodeCountDown()
-    //         } else {
-    //           this.$message.error(response.Msg || '验证码发送失败')
-    //         }
-    //       })
-    //       .catch(error => {
-    //         this.$message.error('验证码发送失败，请检查网络连接')
-    //         console.error('发送验证码错误:', error)
-    //       })
-    //       .finally(() => {
-    //         this.verifyCodeLoading = false
-    //       })
-    //   })
-    // },
-    // startVerifyCodeCountDown() {
-    //   this.verifyCodeCountDown = 60
-
-    //   if (this.verifyCodeTimer) {
-    //     clearInterval(this.verifyCodeTimer)
-    //   }
-    //   this.verifyCodeTimer = setInterval(() => {
-    //     this.verifyCodeCountDown--
-
-    //     if (this.verifyCodeCountDown <= 0) {
-    //       clearInterval(this.verifyCodeTimer)
-    //       this.verifyCodeTimer = null
-    //     }
-    //   }, 1000)
-    // },
-    /**
-     * 验证两次密码是否一致
-     */
-    // validatePasswordMatch(rule, value, callback) {
-    //   const regPassword = this.form.getFieldValue('regPassword')
-
-    //   if (value && value !== regPassword) {
-    //     callback('两次输入的密码不一致')
-    //   } else {
-    //     callback()
-    //   }
-    // }
   }
 }
 </script>
