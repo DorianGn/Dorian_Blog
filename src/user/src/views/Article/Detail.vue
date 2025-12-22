@@ -58,7 +58,8 @@
             <div class="article-meta">
               <div class="meta-item author">
                 <div class="author-avatar">
-                  {{ (article.AuthorName || '匿').charAt(0) }}
+                  <img v-if="article.AuthorAvatar" :src="article.AuthorAvatar" :alt="article.AuthorName" class="avatar-img" />
+                  <span v-else class="avatar-text">{{ (article.AuthorName || '匿').charAt(0) }}</span>
                 </div>
                 <span class="author-name">{{ article.AuthorName || '匿名' }}</span>
               </div>
@@ -99,7 +100,7 @@
               <button class="action-btn comment-btn" @click="scrollToComments">
                 <i class="el-icon-chat-dot-round"></i>
                 <span>评论</span>
-                <span class="count">{{ article.CommentCount || 0 }}</span>
+                <span class="count">{{ comments.length }}</span>
               </button>
               <button class="action-btn share-btn" @click="handleShare">
                 <i class="el-icon-share"></i>
@@ -121,7 +122,8 @@
             <div v-if="isLogin" class="comment-form">
               <div class="form-header">
                 <div class="user-avatar">
-                  {{ (userInfo?.UserName || '我').charAt(0) }}
+                  <img v-if="userInfo?.Avatar" :src="userInfo.Avatar" :alt="userInfo.UserName" class="avatar-img" />
+                  <span v-else class="avatar-text">{{ (userInfo?.UserName || '我').charAt(0) }}</span>
                 </div>
                 <span class="form-label">
                   {{ replyTo ? `回复 @${replyTo.UserName}` : '发表评论' }}
@@ -154,30 +156,83 @@
 
             <!-- 评论列表 -->
             <div v-loading="loadingComments" class="comment-list">
-              <div v-for="comment in comments" :key="comment.Id" class="comment-item">
-                <div class="comment-avatar">
-                  {{ (comment.UserName || '匿').charAt(0) }}
-                </div>
-                <div class="comment-content">
-                  <div class="comment-header">
-                    <span class="comment-user">{{ comment.UserName || '匿名用户' }}</span>
-                    <span v-if="comment.ReplyToUserName" class="reply-info">
-                      回复 <span class="reply-user">@{{ comment.ReplyToUserName }}</span>
-                    </span>
+              <!-- 父评论 -->
+              <div v-for="parent in rootComments" :key="parent.Id" class="comment-thread">
+                <!-- 父评论项 -->
+                <div class="comment-item parent-comment">
+                  <div class="comment-avatar">
+                    <img v-if="parent.UserAvatar" :src="parent.UserAvatar" :alt="parent.UserName" class="avatar-img" />
+                    <span v-else class="avatar-text">{{ (parent.UserName || '匿').charAt(0) }}</span>
                   </div>
-                  <div class="comment-text">{{ comment.Content }}</div>
-                  <div class="comment-footer">
-                    <span class="comment-time">{{ formatDate(comment.CreatedTime) }}</span>
-                    <div class="comment-actions">
-                      <button class="action-link reply-link" @click="setReplyTo(comment)">
-                        <i class="el-icon-chat-dot-square"></i> 回复
-                      </button>
-                      <button
-                        v-if="canDeleteComment(comment)"
-                        class="action-link delete-link"
-                        @click="handleDeleteComment(comment)">
-                        <i class="el-icon-delete"></i> 删除
-                      </button>
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <span class="comment-user">{{ parent.UserName || '匿名用户' }}</span>
+                    </div>
+                    <div class="comment-text">{{ parent.Content }}</div>
+                    <div class="comment-footer">
+                      <span class="comment-time">{{ formatDate(parent.CreatedTime) }}</span>
+                      <div class="comment-actions">
+                        <button class="action-link reply-link" @click="setReplyTo(parent)">
+                          <i class="el-icon-chat-dot-square"></i> 回复
+                        </button>
+                        <button
+                          v-if="canDeleteComment(parent)"
+                          class="action-link delete-link"
+                          @click="handleDeleteComment(parent)">
+                          <i class="el-icon-delete"></i> 删除
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- 子评论列表 -->
+                    <div v-if="getChildComments(parent.Id).length > 0" class="child-comments">
+                      <div
+                        v-for="child in getVisibleChildren(parent.Id)"
+                        :key="child.Id"
+                        class="comment-item child-comment">
+                        <div class="comment-avatar small">
+                          <img v-if="child.UserAvatar" :src="child.UserAvatar" :alt="child.UserName" class="avatar-img" />
+                          <span v-else class="avatar-text">{{ (child.UserName || '匿').charAt(0) }}</span>
+                        </div>
+                        <div class="comment-content">
+                          <div class="comment-header">
+                            <span class="comment-user">{{ child.UserName || '匿名用户' }}</span>
+                            <span v-if="child.ReplyToUserName" class="reply-info">
+                              回复 <span class="reply-user">@{{ child.ReplyToUserName }}</span>
+                            </span>
+                          </div>
+                          <div class="comment-text">{{ child.Content }}</div>
+                          <div class="comment-footer">
+                            <span class="comment-time">{{ formatDate(child.CreatedTime) }}</span>
+                            <div class="comment-actions">
+                              <button class="action-link reply-link" @click="setReplyTo(child, parent)">
+                                <i class="el-icon-chat-dot-square"></i> 回复
+                              </button>
+                              <button
+                                v-if="canDeleteComment(child)"
+                                class="action-link delete-link"
+                                @click="handleDeleteComment(child)">
+                                <i class="el-icon-delete"></i> 删除
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- 展开更多按钮 -->
+                      <div
+                        v-if="getChildComments(parent.Id).length > 3 && !expandedComments[parent.Id]"
+                        class="expand-more"
+                        @click="toggleExpand(parent.Id)">
+                        <i class="el-icon-arrow-down"></i>
+                        展开更多回复 ({{ getChildComments(parent.Id).length - 3 }}条)
+                      </div>
+                      <div
+                        v-if="expandedComments[parent.Id] && getChildComments(parent.Id).length > 3"
+                        class="expand-more"
+                        @click="toggleExpand(parent.Id)">
+                        <i class="el-icon-arrow-up"></i>
+                        收起回复
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -258,9 +313,9 @@
 </template>
 
 <script>
-import { getArticleDetail, getArticleList } from '@/api/article'
+import { getArticleDetail, getArticleList, incrementViewCount } from '@/api/article'
 import { getCommentList, addComment, deleteComment } from '@/api/component'
-import { likeArticle, unlikeArticle, checkLikeStatus } from '@/api/lick'
+import { likeArticle, unlikeArticle, checkLikeStatus } from '@/api/like'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -278,11 +333,17 @@ export default {
       commentContent: '',
       submitting: false,
       replyTo: null,
+      replyToParent: null,
+      expandedComments: {},
       Math: Math
     }
   },
   computed: {
-    ...mapGetters('user', ['isLogin', 'userInfo'])
+    ...mapGetters('user', ['isLogin', 'userInfo']),
+    // 获取所有父评论（没有 ParentId 的评论）
+    rootComments() {
+      return this.comments.filter(c => !c.ParentId)
+    }
   },
   watch: {
     '$route.params.id': {
@@ -305,6 +366,9 @@ export default {
           this.article = res.Data
           document.title = this.article.Title + ' - 博客'
 
+          // 增加阅读量
+          this.incrementView(id)
+
           // 并行加载其他数据
           this.loadComments()
           this.loadRelatedArticles()
@@ -316,6 +380,18 @@ export default {
         console.error('获取文章详情失败:', error)
       } finally {
         this.loading = false
+      }
+    },
+
+    async incrementView(id) {
+      try {
+        const res = await incrementViewCount(id)
+        if (res.Success && this.article) {
+          // 更新本地显示的阅读量
+          this.article.ViewCount = res.Data
+        }
+      } catch (error) {
+        console.error('增加阅读量失败:', error)
       }
     },
 
@@ -353,9 +429,12 @@ export default {
     async checkLikeStatus() {
       try {
         const res = await checkLikeStatus(this.article.Id)
-        if (res.Data && res.Data.length > 0) {
+        if (res.Success && res.Data) {
           this.isLiked = true
-          this.likeId = res.Data[0].Id
+          this.likeId = res.Data.Id
+        } else {
+          this.isLiked = false
+          this.likeId = null
         }
       } catch (error) {
         console.error('检查点赞状态失败:', error)
@@ -397,16 +476,38 @@ export default {
       }
     },
 
-    setReplyTo(comment) {
+    setReplyTo(comment, parent = null) {
       if (!this.isLogin) {
         this.$message.warning('请先登录')
         return
       }
       this.replyTo = comment
+      // 如果是回复子评论，记录其父评论
+      this.replyToParent = parent || (comment.ParentId ? this.comments.find(c => c.Id === comment.ParentId) : comment)
     },
 
     cancelReply() {
       this.replyTo = null
+      this.replyToParent = null
+    },
+
+    // 获取某个父评论的所有子评论
+    getChildComments(parentId) {
+      return this.comments.filter(c => c.ParentId === parentId)
+    },
+
+    // 获取可见的子评论（根据展开状态）
+    getVisibleChildren(parentId) {
+      const children = this.getChildComments(parentId)
+      if (this.expandedComments[parentId]) {
+        return children
+      }
+      return children.slice(0, 3)
+    },
+
+    // 切换展开/收起状态
+    toggleExpand(parentId) {
+      this.$set(this.expandedComments, parentId, !this.expandedComments[parentId])
     },
 
     async submitComment() {
@@ -420,14 +521,16 @@ export default {
         const data = {
           articleId: this.article.Id,
           content: this.commentContent.trim(),
-          parentId: this.replyTo?.Id,
-          replyToUserId: this.replyTo?.UserId
+          // 回复时，parentId 始终为父评论的 ID
+          parentId: this.replyToParent?.Id || null,
+          replyToUserId: this.replyTo?.UserId || null
         }
         const res = await addComment(data)
         if (res.Success) {
           this.$message.success('评论成功')
           this.commentContent = ''
           this.replyTo = null
+          this.replyToParent = null
           this.loadComments()
           this.article.CommentCount = (this.article.CommentCount || 0) + 1
         }
@@ -727,6 +830,21 @@ $text-muted: rgba(153, 153, 153, 0.7);
           justify-content: center;
           font-size: 14px;
           font-weight: 500;
+          overflow: hidden;
+
+          .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .avatar-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+          }
         }
 
         .author-name {
@@ -935,6 +1053,21 @@ $text-muted: rgba(153, 153, 153, 0.7);
         align-items: center;
         justify-content: center;
         font-size: 14px;
+        overflow: hidden;
+
+        .avatar-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .avatar-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .form-label {
@@ -1053,13 +1186,25 @@ $text-muted: rgba(153, 153, 153, 0.7);
   }
 
   .comment-list {
+    .comment-thread {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
     .comment-item {
       display: flex;
       gap: 16px;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
-      &:last-child {
+      &.parent-comment {
+        padding-bottom: 12px;
+      }
+
+      &.child-comment {
+        padding: 12px 0;
         border-bottom: none;
       }
 
@@ -1074,6 +1219,27 @@ $text-muted: rgba(153, 153, 153, 0.7);
         justify-content: center;
         font-size: 16px;
         flex-shrink: 0;
+        overflow: hidden;
+
+        &.small {
+          width: 32px;
+          height: 32px;
+          font-size: 12px;
+        }
+
+        .avatar-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .avatar-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .comment-content {
@@ -1141,6 +1307,39 @@ $text-muted: rgba(153, 153, 153, 0.7);
               &.delete-link:hover {
                 color: #f56c6c;
               }
+            }
+          }
+        }
+
+        // 子评论区域
+        .child-comments {
+          margin-top: 12px;
+          padding-left: 8px;
+          border-left: 2px solid rgba(102, 126, 234, 0.15);
+          margin-left: 4px;
+        }
+
+        // 展开更多按钮
+        .expand-more {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 0;
+          font-size: 13px;
+          color: #667eea;
+          cursor: pointer;
+          transition: all 0.3s;
+
+          i {
+            font-size: 14px;
+            transition: transform 0.3s;
+          }
+
+          &:hover {
+            color: #764ba2;
+
+            i {
+              transform: translateY(2px);
             }
           }
         }
@@ -1240,7 +1439,6 @@ $text-muted: rgba(153, 153, 153, 0.7);
           line-height: 1.4;
           margin-bottom: 6px;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
           transition: color 0.3s;

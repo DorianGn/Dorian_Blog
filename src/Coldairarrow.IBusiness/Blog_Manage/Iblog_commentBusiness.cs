@@ -1,4 +1,4 @@
-﻿using Coldairarrow.Entity.Blog_Manage;
+using Coldairarrow.Entity.Blog_Manage;
 using Coldairarrow.Entity.DTO.Blog_Manage;
 using Coldairarrow.Util;
 using System.Collections.Generic;
@@ -13,5 +13,15 @@ namespace Coldairarrow.Business.Blog_Manage
         Task AddDataAsync(blog_comment data);
         Task UpdateDataAsync(blog_comment data);
         Task DeleteDataAsync(List<string> ids);
+
+        /// <summary>
+        /// 发表评论并更新文章评论数
+        /// </summary>
+        Task<AjaxResult> AddCommentAsync(blog_comment data, string userId);
+
+        /// <summary>
+        /// 删除评论（验证权限）并更新文章评论数
+        /// </summary>
+        Task<AjaxResult> DeleteCommentAsync(string commentId, string userId);
     }
 }

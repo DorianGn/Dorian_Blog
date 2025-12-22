@@ -34,9 +34,20 @@ namespace Coldairarrow.Api.Controllers.Blog_Manage
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<blog_article> GetTheData(IdInputDTO input)
+        public async Task<Blog_ArticleDTO> GetTheData(IdInputDTO input)
         {
-            return await _blog_articleBus.GetTheDataAsync(input.id);
+            return await _blog_articleBus.GetArticleDetailAsync(input.id);
+        }
+
+        /// <summary>
+        /// 增加文章阅读量
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<AjaxResult<int>> IncrementViewCount(IdInputDTO input)
+        {
+            var viewCount = await _blog_articleBus.IncrementViewCountAsync(input.id);
+            return new AjaxResult<int> { Success = true, Data = viewCount };
         }
 
         #endregion

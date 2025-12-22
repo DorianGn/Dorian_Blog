@@ -27,6 +27,7 @@ namespace Coldairarrow.Entity.DTO.Blog_Manage
         }  // 分类名称
         public String AuthorId { get; set; }
         public String AuthorName { get; set; }
+        public String AuthorAvatar { get; set; }
         public Int32 Status { get; set; }
         public Int32 IsTop { get; set; }
         public Int32 IsRecommend

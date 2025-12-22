@@ -24,7 +24,7 @@
           <div class="hero-text">
             <h1 class="hero-title">
               <span class="title-line">欢迎来到</span>
-              <span class="title-line accent">OnlyBlog</span>
+              <span class="title-line accent">Dorian Blog</span>
             </h1>
             <p class="hero-subtitle">
               探索技术的边界，记录成长的足迹
@@ -122,19 +122,19 @@
             </div>
           </div>
           <div class="feature-card glass-card" @click="$router.push('/archive')">
-            <h3 class="card-title">项目展示</h3>
-            <p class="card-desc">展示个人开发的各种项目，包括开源项目、实战项目和技术Demo</p>
+            <h3 class="card-title">归档</h3>
+            <p class="card-desc">按时间轴浏览所有文章，回顾技术成长的足迹与历程</p>
             <div class="card-tags">
-              <span class="tag primary">{{ categories.length || 0 }}个精选</span>
-              <span class="tag secondary">源码开放</span>
+              <span class="tag primary">{{ total || 0 }}篇文章</span>
+              <span class="tag secondary">时间线</span>
             </div>
           </div>
           <div class="feature-card glass-card" @click="$router.push('/about')">
-            <h3 class="card-title">工具推荐</h3>
-            <p class="card-desc">推荐各种实用的开发工具、在线服务和资源网站</p>
+            <h3 class="card-title">关于</h3>
+            <p class="card-desc">了解博主、本站技术栈以及联系方式</p>
             <div class="card-tags">
-              <span class="tag primary">精选工具</span>
-              <span class="tag secondary">定期更新</span>
+              <span class="tag primary">个人简介</span>
+              <span class="tag secondary">联系我</span>
             </div>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default {
       // 统计数据
       stats: [
         { value: '0', label: '技术文章' },
-        { value: '0', label: '项目展示' },
+        { value: '0', label: '文章分类' },
         { value: '0', label: '总访问' },
         { value: '0', label: '获得点赞' }
       ],
@@ -401,7 +401,7 @@ export default {
       const allStats = this.calculateAllStats()
       this.stats = [
         { value: this.total.toString(), label: '技术文章' },
-        { value: this.categories.length.toString(), label: '项目展示' },
+        { value: this.categories.length.toString(), label: '文章分类' },
         { value: this.formatNumber(allStats.views), label: '总访问' },
         { value: this.formatNumber(allStats.likes), label: '获得点赞' }
       ]
@@ -1042,7 +1042,6 @@ $text-muted: #999999;
           margin-bottom: 12px;
           opacity: 0.9;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
@@ -1306,7 +1305,6 @@ $text-muted: #999999;
       margin-bottom: 8px;
       line-height: 1.4;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -1317,7 +1315,6 @@ $text-muted: #999999;
       line-height: 1.6;
       margin-bottom: 16px;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -1412,7 +1409,6 @@ $text-muted: #999999;
       line-height: 1.6;
       margin-bottom: auto;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,5 +29,10 @@ namespace Coldairarrow.Entity.DTO.Blog_Manage
         public DateTime CreatedTime { set; get; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+
+        // 点赞和评论筛选字段
+        public string ArticleId { get; set; }
+        public string UserId { get; set; }
+        public string CategoryId { get; set; }
     }
 }

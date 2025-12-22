@@ -5,15 +5,10 @@
       <div class="logo-section">
         <div class="logo" @click="goHome">
           <div class="logo-icon-wrapper">
-            <svg class="globe-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
-              <ellipse cx="12" cy="12" rx="4" ry="10" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M2 12h20" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
+            <img class="globe-icon" src="@/assets/icons/logo.png" alt="logo" />
           </div>
           <div class="logo-text">
-            <span class="site-name">OnlyBlog</span>
+            <span class="site-name">Dorian Blog</span>
             <p class="tagline">分享技术、记录生活</p>
           </div>
         </div>
@@ -37,25 +32,25 @@
         </router-link>
         <router-link to="/archive" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="3" y="3" width="18" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5 7v12a2 2 0 002 2h10a2 2 0 002-2V7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
-          <span>项目展示</span>
+          <span>归档</span>
         </router-link>
         <router-link to="/about" class="nav-item">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M20 21c0-4.418-3.582-8-8-8s-8 3.582-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
-          <span>工具推荐</span>
+          <span>关于</span>
         </router-link>
       </nav>
 
       <!-- 右侧区域 -->
       <div class="header-right">
         <!-- 搜索框 -->
-        <div class="search-box">
+        <!-- <div class="search-box">
           <div class="search-input-wrapper">
             <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/>
@@ -68,7 +63,7 @@
               @keyup.enter="handleSearch"
             />
           </div>
-        </div>
+        </div> -->
 
         <!-- 用户菜单 -->
         <div class="user-menu">

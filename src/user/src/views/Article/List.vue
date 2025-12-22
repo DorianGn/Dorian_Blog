@@ -651,7 +651,6 @@ $text-muted: rgba(153, 153, 153, 0.7);
       margin-bottom: 10px;
       line-height: 1.5;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -662,7 +661,6 @@ $text-muted: rgba(153, 153, 153, 0.7);
       line-height: 1.7;
       margin-bottom: 16px;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }

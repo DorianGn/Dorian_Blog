@@ -30,8 +30,8 @@ export default {
       labelCol: { xs: { span: 24 }, sm: { span: 7 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 13 } },
       entity: {
-        Img: require('@/assets/logo.png'),
-        Imgs: [require('@/assets/logo.png')]
+        Img: require('@/assets/icons/logo.svg'),
+        Imgs: [require('@/assets/icons/logo.svg')]
       }
     }
   },
@@ -41,8 +41,8 @@ export default {
     },
     setImg () {
       this.entity = {
-        Img: require('@/assets/logo.png'),
-        Imgs: [require('@/assets/logo.png')]
+        Img: require('@/assets/icons/logo.svg'),
+        Imgs: [require('@/assets/icons/logo.svg')]
       }
     }
   }

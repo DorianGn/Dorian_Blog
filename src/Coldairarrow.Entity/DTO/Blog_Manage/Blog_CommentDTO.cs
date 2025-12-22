@@ -13,6 +13,7 @@ namespace Coldairarrow.Entity.DTO.Blog_Manage
         public string ArticleTitle { get; set; }
         public String UserId { get; set; }
         public string UserName { get; set; }
+        public string UserAvatar { get; set; }
         public String Content { get; set; }
         public String ParentId { get; set; }
         public string ParentContent { get; set; }

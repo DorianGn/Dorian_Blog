@@ -235,7 +235,6 @@ export default {
           return new Promise((resolve, reject) => {
             thisObj.$http.post('/Blog_Manage/blog_tag/DeleteData', ids).then(resJson => {
               resolve()
-
               if (resJson.Success) {
                 thisObj.$message.success('操作成功!')
 

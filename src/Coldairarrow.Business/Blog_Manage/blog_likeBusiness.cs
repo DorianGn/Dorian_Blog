@@ -1,4 +1,4 @@
-﻿using Coldairarrow.Entity.Base_Manage;
+using Coldairarrow.Entity.Base_Manage;
 using Coldairarrow.Entity.Blog_Manage;
 using Coldairarrow.Entity.DTO.Blog_Manage;
 using Coldairarrow.Util;
@@ -48,6 +48,16 @@ namespace Coldairarrow.Business.Blog_Manage
                     default: break;
                 }
             }
+            // 按文章ID筛选
+            if (!search.ArticleId.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.ArticleId == search.ArticleId);
+            }
+            // 按用户ID筛选
+            if (!search.UserId.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.UserId == search.UserId);
+            }
             if (!search.StartTime.IsNullOrEmpty())
             {
                 var startTime = DateTime.Parse(search.StartTime);
@@ -60,8 +70,6 @@ namespace Coldairarrow.Business.Blog_Manage
             }
             return await query.GetPageResultAsync(input);
         }
-
-
 
         public async Task<blog_like> GetTheDataAsync(string id)
         {
@@ -83,6 +91,86 @@ namespace Coldairarrow.Business.Blog_Manage
             await DeleteAsync(ids);
         }
 
+        /// <summary>
+        /// 检查用户是否已点赞某文章
+        /// </summary>
+        public async Task<blog_like> CheckUserLikeAsync(string articleId, string userId)
+        {
+            return await GetIQueryable()
+                .Where(x => x.ArticleId == articleId && x.UserId == userId)
+                .FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// 添加点赞并更新文章计数
+        /// </summary>
+        public async Task<AjaxResult> LikeArticleAsync(string articleId, string userId)
+        {
+            // 检查是否已点赞
+            var existingLike = await CheckUserLikeAsync(articleId, userId);
+            if (existingLike != null)
+            {
+                return new AjaxResult { Success = false, Msg = "您已经点赞过该文章" };
+            }
+
+            // 添加点赞记录
+            var like = new blog_like
+            {
+                Id = IdHelper.GetId(),
+                ArticleId = articleId,
+                UserId = userId,
+                CreatedTime = DateTime.Now
+            };
+
+            await InsertAsync(like);
+
+            // 更新文章点赞数
+            var article = await Db.GetIQueryable<blog_article>()
+                .Where(x => x.Id == articleId)
+                .FirstOrDefaultAsync();
+            if (article != null)
+            {
+                article.LikeCount = article.LikeCount + 1;
+                await Db.UpdateAsync(article);
+            }
+
+            return new AjaxResult<string> { Success = true, Msg = "点赞成功", Data = like.Id };
+        }
+
+        /// <summary>
+        /// 取消点赞并更新文章计数
+        /// </summary>
+        public async Task<AjaxResult> UnlikeArticleAsync(string likeId, string userId)
+        {
+            // 获取点赞记录
+            var like = await GetEntityAsync(likeId);
+            if (like == null)
+            {
+                return new AjaxResult { Success = false, Msg = "点赞记录不存在" };
+            }
+
+            // 验证是否为本人操作
+            if (like.UserId != userId)
+            {
+                return new AjaxResult { Success = false, Msg = "无权取消他人的点赞" };
+            }
+
+            // 删除点赞记录
+            await DeleteAsync(likeId);
+
+            // 更新文章点赞数
+            var article = await Db.GetIQueryable<blog_article>()
+                .Where(x => x.Id == like.ArticleId)
+                .FirstOrDefaultAsync();
+            if (article != null && article.LikeCount > 0)
+            {
+                article.LikeCount = article.LikeCount - 1;
+                await Db.UpdateAsync(article);
+            }
+
+            return new AjaxResult { Success = true, Msg = "取消点赞成功" };
+        }
+
         #endregion
 
         #region 私有成员
@@ -90,5 +178,3 @@ namespace Coldairarrow.Business.Blog_Manage
         #endregion
     }
 }
-
-

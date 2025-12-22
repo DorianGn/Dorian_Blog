@@ -39,7 +39,8 @@ namespace Coldairarrow.Business.Blog_Manage
                             CategoryId = article.CategoryId,
                             CategoryName = cat != null ? cat.Name : "未分类",
                             AuthorId = article.AuthorId,
-                            AuthorName = userGroupDe != null && userGroupDe.UserType == 4 ? userGroupDe.UserName : "佚名",
+                            AuthorName = userGroupDe != null ? (string.IsNullOrEmpty(userGroupDe.RealName) ? userGroupDe.UserName : userGroupDe.RealName) : "佚名",
+                            AuthorAvatar = userGroupDe != null ? userGroupDe.Avatar : null,
                             Status = article.Status,
                             IsTop = article.IsTop,
                             IsRecommend = article.IsRecommend,
@@ -83,12 +84,53 @@ namespace Coldairarrow.Business.Blog_Manage
             {
                 query = query.Where(x => x.AllowComment == search.AllowComment.Value);
             }
+            // 按分类ID筛选
+            if (!search.CategoryId.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.CategoryId == search.CategoryId);
+            }
             return await query.GetPageResultAsync(input);
         }
 
         public async Task<blog_article> GetTheDataAsync(string id)
         {
             return await GetEntityAsync(id);
+        }
+
+        public async Task<Blog_ArticleDTO> GetArticleDetailAsync(string id)
+        {
+            var query = from article in GetIQueryable().Where(x => x.Id == id)
+                        join category in Db.GetIQueryable<blog_category>() on article.CategoryId equals category.Id into categoryGroup
+                        from cat in categoryGroup.DefaultIfEmpty()
+                        join user in Db.GetIQueryable<Base_User>() on article.AuthorId equals user.Id into userGroup
+                        from userGroupDe in userGroup.DefaultIfEmpty()
+                        select new Blog_ArticleDTO
+                        {
+                            Id = article.Id,
+                            Title = article.Title,
+                            Summary = article.Summary,
+                            Content = article.Content,
+                            CoverImage = article.CoverImage,
+                            CategoryId = article.CategoryId,
+                            CategoryName = cat != null ? cat.Name : "未分类",
+                            AuthorId = article.AuthorId,
+                            AuthorName = userGroupDe != null ? (string.IsNullOrEmpty(userGroupDe.RealName) ? userGroupDe.UserName : userGroupDe.RealName) : "佚名",
+                            AuthorAvatar = userGroupDe != null ? userGroupDe.Avatar : null,
+                            Status = article.Status,
+                            IsTop = article.IsTop,
+                            IsRecommend = article.IsRecommend,
+                            AllowComment = article.AllowComment,
+                            ViewCount = article.ViewCount,
+                            LikeCount = article.LikeCount,
+                            CommentCount = article.CommentCount,
+                            PublishTime = article.PublishTime,
+                            IsDeleted = article.IsDeleted,
+                            CreatedTime = article.CreatedTime,
+                            CreatorId = article.CreatorId,
+                            UpdatedTime = article.UpdatedTime,
+                            UpdaterId = article.UpdaterId
+                        };
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task AddDataAsync(blog_article data)
@@ -105,6 +147,18 @@ namespace Coldairarrow.Business.Blog_Manage
         public async Task DeleteDataAsync(List<string> ids)
         {
             await DeleteAsync(ids);
+        }
+
+        public async Task<int> IncrementViewCountAsync(string id)
+        {
+            var article = await GetEntityAsync(id);
+            if (article != null)
+            {
+                article.ViewCount = article.ViewCount + 1;
+                await UpdateAsync(article);
+                return article.ViewCount;
+            }
+            return 0;
         }
 
         #endregion

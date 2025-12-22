@@ -34,7 +34,7 @@ namespace Coldairarrow.Business.Blog_Manage
             if (search.isDeleted.HasValue)
             {
                 q = q.Where(x => x.IsDeleted == search.isDeleted.Value);
-            }首页
+            }
 
             if (search.Status.HasValue)
             {

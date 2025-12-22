@@ -21,30 +21,28 @@ export function getCommentList (articleId, pageIndex = 1, pageRows = 50) {
 }
 
 /**
- * 发表评论
+ * 发表评论（需要登录）
  */
 export function addComment (data) {
   return request({
-    url: '/Blog_Manage/blog_comment/SaveData',
+    url: '/Blog_Manage/blog_comment/AddComment',
     method: 'post',
     data: {
       ArticleId: data.articleId,
       Content: data.content,
       ParentId: data.parentId || null,
-      ReplyToUserId: data.replyToUserId || null,
-      Status: 1,
-      LikeCount: 0
+      ReplyToUserId: data.replyToUserId || null
     }
   })
 }
 
 /**
- * 删除评论（只能删除自己的）
+ * 删除评论（需要登录，只能删除自己的评论）
  */
 export function deleteComment (id) {
   return request({
-    url: '/Blog_Manage/blog_comment/DeleteData',
+    url: '/Blog_Manage/blog_comment/DeleteComment',
     method: 'post',
-    data: { ids: [id] }
+    data: { id: id }
   })
 }

@@ -82,3 +82,15 @@ export function uploadFile (file) {
     }
   })
 }
+
+/**
+ * 获取用户统计数据（文章数、评论数、获赞数）
+ */
+export function getUserStatistics (userId) {
+  return request({
+    url: '/Blog_Manage/Blog_Statistics/GetUserStatistics',
+    method: 'post',
+    data: {},
+    params: { userId }
+  })
+}

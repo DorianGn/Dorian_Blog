@@ -107,3 +107,14 @@ export function searchArticles (keyword, pageIndex = 1, pageRows = 10) {
     }
   })
 }
+
+/**
+ * 增加文章阅读量
+ */
+export function incrementViewCount (id) {
+  return request({
+    url: '/Blog_Manage/blog_article/IncrementViewCount',
+    method: 'post',
+    data: { id }
+  })
+}
