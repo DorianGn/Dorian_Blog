@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /src/Coldairarrow.Web/wwwroot/Upload/File
 /src/Coldairarrow.Api/wwwroot/Upload
+
+# Exception for Coldairarrow.User directory
+!src/Coldairarrow.User/
