@@ -1,0 +1,61 @@
+//全局样式入口文件
+//重置样式
+@import "reset.scss";
+//变量
+@import "./variables.scss";
+
+//通用样式
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f7fa;
+}
+#app {
+  min-height: 100vh;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// 链接样式
+a {
+  color: #409eff;
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #66b1ff;
+  }
+}
+
+// 清除浮动
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
