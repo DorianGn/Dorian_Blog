@@ -1,13 +1,13 @@
 # ========================================
-# 第一阶段：构建阶段 (Build Stage)
+# Dockerfile for Render Deployment
+# 这个文件放在项目根目录，用于 Render 部署
 # ========================================
-# 使用 .NET 5.0 SDK 镜像来编译项目
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-# 设置工作目录
+# 第一阶段：构建
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 
-# 先复制解决方案和项目文件（利用 Docker 缓存加速构建）
+# 复制项目文件
 COPY ["Server.sln", "./"]
 COPY ["src/Coldairarrow.Api/Coldairarrow.Api.csproj", "src/Coldairarrow.Api/"]
 COPY ["src/Coldairarrow.Business/Coldairarrow.Business.csproj", "src/Coldairarrow.Business/"]
@@ -15,36 +15,19 @@ COPY ["src/Coldairarrow.IBusiness/Coldairarrow.IBusiness.csproj", "src/Coldairar
 COPY ["src/Coldairarrow.Entity/Coldairarrow.Entity.csproj", "src/Coldairarrow.Entity/"]
 COPY ["src/Coldairarrow.Util/Coldairarrow.Util.csproj", "src/Coldairarrow.Util/"]
 
-# 还原 NuGet 包（下载依赖）
+# 还原依赖
 RUN dotnet restore "src/Coldairarrow.Api/Coldairarrow.Api.csproj"
 
-# 复制所有源代码
+# 复制源代码并编译
 COPY . .
-
-# 编译并发布项目
 WORKDIR /src/src/Coldairarrow.Api
 RUN dotnet publish "Coldairarrow.Api.csproj" -c Release -o /app/publish
 
-# ========================================
-# 第二阶段：运行阶段 (Runtime Stage)
-# ========================================
-# 使用更小的运行时镜像（不包含 SDK，体积更小）
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
-
-# 设置工作目录
+# 第二阶段：运行
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
-
-# 设置时区为上海
 ENV TZ=Asia/Shanghai
-
-# 从构建阶段复制编译好的文件
 COPY --from=build /app/publish .
-
-# 暴露端口（告诉 Docker 这个容器会用 5000 端口）
 EXPOSE 5000
-
-# 设置环境变量，让 ASP.NET Core 监听所有 IP
 ENV ASPNETCORE_URLS=http://+:5000
-
-# 启动命令
 ENTRYPOINT ["dotnet", "Coldairarrow.Api.dll"]

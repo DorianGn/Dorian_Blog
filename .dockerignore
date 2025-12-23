@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.vs
+.vscode
+*.user
+*.suo
+
+# 构建输出
+**/bin
+**/obj
+**/out
+**/publish
+
+# 前端项目（后端 Docker 不需要）
+src/Coldairarrow.Web/node_modules
+src/Coldairarrow.User/node_modules
+src/Coldairarrow.Web/dist
+src/Coldairarrow.User/dist
+
+# 日志和临时文件
+*.log
+logs/
+
+# 文档
+*.md
+LICENSE

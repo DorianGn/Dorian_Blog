@@ -1,0 +1,25 @@
+# ========================================
+# Render Blueprint 配置文件
+# 参考文档: https://render.com/docs/blueprint-spec
+# ========================================
+
+services:
+  # 后端 API 服务
+  - type: web
+    name: blog-api
+    runtime: docker
+    # Render 会自动使用根目录的 Dockerfile
+    dockerfilePath: ./Dockerfile
+    # 环境变量（在 Render 控制台也可以配置）
+    envVars:
+      # 数据库连接字符串（部署时需要修改为真实的数据库地址）
+      - key: Database__BaseDb__ConnectionString
+        sync: false  # 表示需要手动在 Render 控制台设置
+      # JWT 密钥
+      - key: jwt__secret
+        generateValue: true  # 自动生成随机值
+      # 告诉 ASP.NET Core 是生产环境
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+    # 健康检查路径（可选）
+    healthCheckPath: /swagger
