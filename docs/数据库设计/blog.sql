@@ -11,7 +11,7 @@
  Target Server Version : 80012 (8.0.12)
  File Encoding         : 65001
 
- Date: 21/11/2025 16:04:14
+ Date: 23/12/2025 13:26:51
 */
 
 SET NAMES utf8mb4;
@@ -44,11 +44,8 @@ INSERT INTO `base_action` VALUES ('1178957405992521728', '2019-10-01 16:58:44', 
 INSERT INTO `base_action` VALUES ('1178957553778823168', '2019-10-01 16:59:19', NULL, 0, '1178957405992521728', 1, '权限管理', '/Base_Manage/Base_Action/List', NULL, 1, NULL, 20);
 INSERT INTO `base_action` VALUES ('1179018395304071168', '2019-10-01 21:01:05', NULL, 0, '1178957405992521728', 1, '密钥管理', '/Base_Manage/Base_AppSecret/List', NULL, 1, NULL, 15);
 INSERT INTO `base_action` VALUES ('1182652266117599232', '2019-10-11 21:40:47', NULL, 0, '1178957405992521728', 1, '用户管理', '/Base_Manage/Base_User/List', NULL, 1, NULL, 0);
-INSERT INTO `base_action` VALUES ('1182652367447789568', '2019-10-11 21:41:11', NULL, 0, '1178957405992521728', 1, '角色管理', '/Base_Manage/Base_Role/List', NULL, 1, NULL, 5);
+INSERT INTO `base_action` VALUES ('1182652367447789568', '2019-10-11 21:41:11', NULL, 0, '1178957405992521728', 1, '角色权限', '/Base_Manage/Base_Role/List', NULL, 1, NULL, 5);
 INSERT INTO `base_action` VALUES ('1182652433302556672', '2019-10-11 21:41:27', NULL, 0, '1178957405992521728', 1, '部门管理', '/Base_Manage/Base_Department/List', NULL, 1, NULL, 10);
-INSERT INTO `base_action` VALUES ('1188801057778569216', '2019-10-28 20:53:53', NULL, 0, '1182652367447789568', 2, '增', NULL, 'Base_Role.Add', 1, NULL, 0);
-INSERT INTO `base_action` VALUES ('1188801057778569217', '2019-10-28 20:53:53', NULL, 0, '1182652367447789568', 2, '改', NULL, 'Base_Role.Edit', 1, NULL, 0);
-INSERT INTO `base_action` VALUES ('1188801057778569218', '2019-10-28 20:53:53', NULL, 0, '1182652367447789568', 2, '删', NULL, 'Base_Role.Delete', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1188801109783744512', '2019-10-28 20:54:06', NULL, 0, '1182652433302556672', 2, '增', NULL, 'Base_Department.Add', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1188801109783744513', '2019-10-28 20:54:06', NULL, 0, '1182652433302556672', 2, '改', NULL, 'Base_Department.Edit', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1188801109783744514', '2019-10-28 20:54:06', NULL, 0, '1182652433302556672', 2, '删', NULL, 'Base_Department.Delete', 1, NULL, 0);
@@ -59,14 +56,26 @@ INSERT INTO `base_action` VALUES ('1188801341661646848', '2019-10-28 20:55:01', 
 INSERT INTO `base_action` VALUES ('1188801341661646849', '2019-10-28 20:55:01', NULL, 0, '1178957553778823168', 2, '改', NULL, 'Base_Action.Edit', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1188801341661646850', '2019-10-28 20:55:01', NULL, 0, '1178957553778823168', 2, '删', NULL, 'Base_Action.Delete', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1193158266167758848', '2019-11-09 21:27:53', 'Admin', 0, NULL, 0, '首页', NULL, NULL, 1, 'home', 0);
-INSERT INTO `base_action` VALUES ('1193158630615027712', '2019-11-09 21:29:20', 'Admin', 0, '1193158266167758848', 1, '项目介绍', '/Home/Introduce', NULL, 0, NULL, 0);
 INSERT INTO `base_action` VALUES ('1193158780011941888', '2019-11-09 21:29:55', 'Admin', 0, '1193158266167758848', 1, '数据统计', '/Home/Statis', NULL, 0, NULL, 0);
 INSERT INTO `base_action` VALUES ('1251792477787000832', '2020-04-19 16:39:19', NULL, 0, '1182652266117599232', 2, '增', NULL, 'Base_User.Add', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1251792477787000833', '2020-04-19 16:39:19', NULL, 0, '1182652266117599232', 2, '改', NULL, 'Base_User.Edit', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1251792477787000834', '2020-04-19 16:39:19', NULL, 0, '1182652266117599232', 2, '删', NULL, 'Base_User.Delete', 1, NULL, 0);
 INSERT INTO `base_action` VALUES ('1251792721769664512', '2020-04-19 16:40:17', 'Admin', 0, '1178957405992521728', 1, '操作日志', '/Base_Manage/Base_UserLog/List', NULL, 0, NULL, 23);
 INSERT INTO `base_action` VALUES ('1991741581203345408', '2025-11-21 13:32:52', 'Admin', 0, NULL, 0, '博客管理', NULL, NULL, 1, 'file-text', 0);
-INSERT INTO `base_action` VALUES ('1991768912332591104', '2025-11-21 15:21:29', 'Admin', 0, '1991741581203345408', 1, '文章管理', '/Blog_Manage/blog_article/List', NULL, 1, NULL, 0);
+INSERT INTO `base_action` VALUES ('1991768912332591104', '2025-11-21 15:21:29', 'Admin', 0, '2002926534364499968', 1, '文章管理', '/Blog_Manage/blog_article/List', NULL, 1, '', 0);
+INSERT INTO `base_action` VALUES ('1993528900084305920', '2025-11-26 11:55:02', 'Admin', 0, '2002926721124274176', 1, '分类管理', '/Blog_Manage/blog_category/List', NULL, 1, '', 0);
+INSERT INTO `base_action` VALUES ('1993851610786172928', '2025-11-27 09:17:23', NULL, 0, '1182652367447789568', 2, '增', NULL, 'Base_Role.Add', 1, NULL, 0);
+INSERT INTO `base_action` VALUES ('1993851610786172929', '2025-11-27 09:17:23', NULL, 0, '1182652367447789568', 2, '改', NULL, 'Base_Role.Edit', 1, NULL, 0);
+INSERT INTO `base_action` VALUES ('1993851610786172930', '2025-11-27 09:17:23', NULL, 0, '1182652367447789568', 2, '删', NULL, 'Base_Role.Delete', 1, NULL, 0);
+INSERT INTO `base_action` VALUES ('1995371171746418688', '2025-12-01 13:55:34', 'Admin', 0, '2002926805165543424', 1, '标签管理', '/Blog_Manage/blog_tag/List', NULL, 1, '', 0);
+INSERT INTO `base_action` VALUES ('1995700587437494272', '2025-12-02 11:44:33', 'Admin', 0, '2002926899327668224', 1, '点赞管理', '/Blog_Manage/blog_like/List', NULL, 1, '', 0);
+INSERT INTO `base_action` VALUES ('1995742553084792832', '2025-12-02 14:31:18', 'Admin', 0, '2002926936170434560', 1, '评论管理', '/Blog_Manage/blog_comment/List', NULL, 1, '', 0);
+INSERT INTO `base_action` VALUES ('2002926534364499968', '2025-12-22 10:17:53', 'Admin', 0, NULL, 0, '文章管理', NULL, NULL, 1, 'read', 0);
+INSERT INTO `base_action` VALUES ('2002926721124274176', '2025-12-22 10:18:38', 'Admin', 0, NULL, 0, '分类管理', '', NULL, 1, 'folder', 0);
+INSERT INTO `base_action` VALUES ('2002926805165543424', '2025-12-22 10:18:58', 'Admin', 0, NULL, 0, '标签管理', NULL, NULL, 1, 'tags', 0);
+INSERT INTO `base_action` VALUES ('2002926899327668224', '2025-12-22 10:19:20', 'Admin', 0, NULL, 0, '点赞管理', NULL, NULL, 1, 'like', 0);
+INSERT INTO `base_action` VALUES ('2002926936170434560', '2025-12-22 10:19:29', 'Admin', 0, NULL, 0, '评论管理', NULL, NULL, 1, 'message', 0);
+INSERT INTO `base_action` VALUES ('2002932800566595584', '2025-12-22 10:42:47', NULL, 0, '1993528900084305920', 2, '编辑文章数量', NULL, 'EditCount', 1, NULL, 0);
 
 -- ----------------------------
 -- Table structure for base_appsecret
@@ -88,6 +97,7 @@ CREATE TABLE `base_appsecret`  (
 -- ----------------------------
 INSERT INTO `base_appsecret` VALUES ('1172497995938271232', '2019-09-13 21:11:20', 'Admin', 0, 'PcAdmin', 'wtMaiTRPTT3hrf5e', '后台AppId');
 INSERT INTO `base_appsecret` VALUES ('1173937877642383360', '2019-09-17 20:32:55', 'Admin', 0, 'AppAdmin', 'IVh9LLSVFcoQPQ5K', 'APP密钥');
+INSERT INTO `base_appsecret` VALUES ('1996789247025090560', '2025-12-05 11:50:30', 'Admin', 0, 'PcUser', 'summerA486@', '用户端');
 
 -- ----------------------------
 -- Table structure for base_buildtest
@@ -169,8 +179,9 @@ CREATE TABLE `base_role`  (
 -- ----------------------------
 INSERT INTO `base_role` VALUES ('1180486275199668224', '2019-10-05 22:13:55', NULL, 0, '超级管理员');
 INSERT INTO `base_role` VALUES ('1990974945336758272', '2025-11-19 10:46:32', 'Admin', 0, '一级管理员');
-INSERT INTO `base_role` VALUES ('1990975039104618496', '2025-11-19 10:46:55', 'Admin', 0, '用户');
-INSERT INTO `base_role` VALUES ('1991712451162279936', '2025-11-21 11:37:07', 'Admin', 0, '游客');
+INSERT INTO `base_role` VALUES ('1990975039104618496', '2025-11-19 10:46:55', 'Admin', 0, '权限-用户');
+INSERT INTO `base_role` VALUES ('1991712451162279936', '2025-11-21 11:37:07', 'Admin', 0, '权限-游客');
+INSERT INTO `base_role` VALUES ('1993617296907571200', '2025-11-26 17:46:18', 'Admin', 0, '权限-作者');
 
 -- ----------------------------
 -- Table structure for base_roleaction
@@ -212,9 +223,12 @@ INSERT INTO `base_roleaction` VALUES ('1990974945542279184', '2025-11-19 10:46:3
 INSERT INTO `base_roleaction` VALUES ('1990974945542279185', '2025-11-19 10:46:32', NULL, 0, '1990974945336758272', '1188801273885888513');
 INSERT INTO `base_roleaction` VALUES ('1990974945542279186', '2025-11-19 10:46:32', NULL, 0, '1990974945336758272', '1188801341661646848');
 INSERT INTO `base_roleaction` VALUES ('1990974945542279187', '2025-11-19 10:46:32', NULL, 0, '1990974945336758272', '1188801341661646849');
-INSERT INTO `base_roleaction` VALUES ('1991712497400287232', '2025-11-21 11:37:18', NULL, 0, '1990975039104618496', '1193158266167758848');
-INSERT INTO `base_roleaction` VALUES ('1991712497400287233', '2025-11-21 11:37:18', NULL, 0, '1990975039104618496', '1193158630615027712');
-INSERT INTO `base_roleaction` VALUES ('1991712497400287234', '2025-11-21 11:37:18', NULL, 0, '1990975039104618496', '1193158780011941888');
+INSERT INTO `base_roleaction` VALUES ('1995766810590318592', '2025-12-02 16:07:42', NULL, 0, '1993617296907571200', '1193158266167758848');
+INSERT INTO `base_roleaction` VALUES ('1995766810590318593', '2025-12-02 16:07:42', NULL, 0, '1993617296907571200', '1193158630615027712');
+INSERT INTO `base_roleaction` VALUES ('1995766810590318594', '2025-12-02 16:07:42', NULL, 0, '1993617296907571200', '1193158780011941888');
+INSERT INTO `base_roleaction` VALUES ('1995766884577841152', '2025-12-02 16:07:59', NULL, 0, '1990975039104618496', '1193158266167758848');
+INSERT INTO `base_roleaction` VALUES ('1995766884577841153', '2025-12-02 16:07:59', NULL, 0, '1990975039104618496', '1193158630615027712');
+INSERT INTO `base_roleaction` VALUES ('1995766884577841154', '2025-12-02 16:07:59', NULL, 0, '1990975039104618496', '1193158780011941888');
 INSERT INTO `base_roleaction` VALUES ('ra_ecdb5662c69f11f081da00e04c8df293', '2025-11-21 14:04:24', 'Admin', 0, '1180486275199668224', '1991741600000000001');
 INSERT INTO `base_roleaction` VALUES ('ra_ecdb58b3c69f11f081da00e04c8df293', '2025-11-21 14:04:24', 'Admin', 0, '1180486275199668224', '1991741600000000002');
 INSERT INTO `base_roleaction` VALUES ('ra_ecdb5915c69f11f081da00e04c8df293', '2025-11-21 14:04:24', 'Admin', 0, '1180486275199668224', '1991741600000000003');
@@ -265,11 +279,11 @@ CREATE TABLE `base_user`  (
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
-INSERT INTO `base_user` VALUES ('1181928860648738816', '2019-10-09 21:46:14', NULL, 0, 'xiaohua', 'e10adc3949ba59abbe56e057f20f883e', '小花', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL);
-INSERT INTO `base_user` VALUES ('1183363221872971776', '2019-10-13 20:45:52', 'Admin', 0, 'aa', NULL, 'aaa', 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL);
-INSERT INTO `base_user` VALUES ('1990964509132460032', '2025-11-19 10:05:04', NULL, 0, 'fff', '670b14728ad9902aecba32e22fa4f6bd', '发发发', 0, NULL, NULL, 0, '3458719294@qq.com', NULL, NULL, NULL, NULL, 0, NULL);
-INSERT INTO `base_user` VALUES ('1990981464736403456', '2025-11-19 11:12:27', NULL, 0, 'sss', '670b14728ad9902aecba32e22fa4f6bd', '0000', 1, NULL, NULL, 0, '3458719294@qq.com', NULL, NULL, NULL, NULL, 0, NULL);
-INSERT INTO `base_user` VALUES ('Admin', '2019-09-13 21:10:03', 'Admin', 0, 'Admin', '670b14728ad9902aecba32e22fa4f6bd', '超级管理员', 1, '2019-09-13', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO `base_user` VALUES ('1995766124326686720', '2025-12-02 16:04:58', 'Admin', 0, '左车灯', 'c6f057b86584942e415435ffb1fa93d4', '左车灯', 0, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `base_user` VALUES ('1995766248624885760', '2025-12-02 16:05:28', 'Admin', 0, '做着饭摄氏度', 'c6f057b86584942e415435ffb1fa93d4', '做着饭摄氏度', 1, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `base_user` VALUES ('1995766378090467328', '2025-12-02 16:05:59', 'Admin', 0, '渡边风间', 'c6f057b86584942e415435ffb1fa93d4', '渡边风间', 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `base_user` VALUES ('1995766458172313600', '2025-12-02 16:06:18', 'Admin', 0, '独自月', 'c6f057b86584942e415435ffb1fa93d4', '独自月', 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `base_user` VALUES ('Admin', '0001-01-01 00:00:00', NULL, 0, 'Admin', '670b14728ad9902aecba32e22fa4f6bd', '超级管理员', 1, '2019-09-13', NULL, 4, NULL, NULL, '', NULL, NULL, 0, 'https://i.ibb.co/b5SRN2nG/20250804111512-15-jpg.jpg');
 
 -- ----------------------------
 -- Table structure for base_userlog
@@ -316,6 +330,87 @@ INSERT INTO `base_userlog` VALUES ('1991712354416463872', '2025-11-21 11:36:44',
 INSERT INTO `base_userlog` VALUES ('1991712451690762240', '2025-11-21 11:37:07', 'Admin', '超级管理员', '系统角色管理', '添加角色:游客');
 INSERT INTO `base_userlog` VALUES ('1991712497442230272', '2025-11-21 11:37:18', 'Admin', '超级管理员', '系统角色管理', '修改角色:用户');
 INSERT INTO `base_userlog` VALUES ('1991712497660334080', '2025-11-21 11:37:18', 'Admin', '超级管理员', '系统角色管理', '修改角色:用户');
+INSERT INTO `base_userlog` VALUES ('1993617298056810496', '2025-11-26 17:46:18', 'Admin', '超级管理员', '系统角色管理', '添加角色:作者');
+INSERT INTO `base_userlog` VALUES ('1993617332143919104', '2025-11-26 17:46:26', 'Admin', '超级管理员', '系统用户管理', '修改用户:小花');
+INSERT INTO `base_userlog` VALUES ('1993617332311691264', '2025-11-26 17:46:26', 'Admin', '超级管理员', '系统用户管理', '修改用户:小花');
+INSERT INTO `base_userlog` VALUES ('1993851337288192000', '2025-11-27 09:16:17', 'Admin', '超级管理员', '系统用户管理', '修改用户:小花');
+INSERT INTO `base_userlog` VALUES ('1993851337493712896', '2025-11-27 09:16:17', 'Admin', '超级管理员', '系统用户管理', '修改用户:小花');
+INSERT INTO `base_userlog` VALUES ('1993851423724408832', '2025-11-27 09:16:38', 'Admin', '超级管理员', '系统用户管理', '修改用户:aaa');
+INSERT INTO `base_userlog` VALUES ('1993851423896375296', '2025-11-27 09:16:38', 'Admin', '超级管理员', '系统用户管理', '修改用户:aaa');
+INSERT INTO `base_userlog` VALUES ('1995766125001969664', '2025-12-02 16:04:58', 'Admin', '超级管理员', '系统用户管理', '添加用户:作者1');
+INSERT INTO `base_userlog` VALUES ('1995766125274599424', '2025-12-02 16:04:58', 'Admin', '超级管理员', '系统用户管理', '添加用户:作者1');
+INSERT INTO `base_userlog` VALUES ('1995766248717160448', '2025-12-02 16:05:28', 'Admin', '超级管理员', '系统用户管理', '添加用户:作者2');
+INSERT INTO `base_userlog` VALUES ('1995766248851378176', '2025-12-02 16:05:28', 'Admin', '超级管理员', '系统用户管理', '添加用户:作者2');
+INSERT INTO `base_userlog` VALUES ('1995766281818607616', '2025-12-02 16:05:36', 'Admin', '超级管理员', '系统用户管理', '删除用户:小花');
+INSERT INTO `base_userlog` VALUES ('1995766281856356352', '2025-12-02 16:05:36', 'Admin', '超级管理员', '系统用户管理', '删除用户:小花');
+INSERT INTO `base_userlog` VALUES ('1995766293860454400', '2025-12-02 16:05:39', 'Admin', '超级管理员', '系统用户管理', '删除用户:aaa');
+INSERT INTO `base_userlog` VALUES ('1995766293931757568', '2025-12-02 16:05:39', 'Admin', '超级管理员', '系统用户管理', '删除用户:aaa');
+INSERT INTO `base_userlog` VALUES ('1995766302119038976', '2025-12-02 16:05:41', 'Admin', '超级管理员', '系统用户管理', '删除用户:发发发');
+INSERT INTO `base_userlog` VALUES ('1995766302186147840', '2025-12-02 16:05:41', 'Admin', '超级管理员', '系统用户管理', '删除用户:发发发');
+INSERT INTO `base_userlog` VALUES ('1995766310901911552', '2025-12-02 16:05:43', 'Admin', '超级管理员', '系统用户管理', '删除用户:0000');
+INSERT INTO `base_userlog` VALUES ('1995766310973214720', '2025-12-02 16:05:43', 'Admin', '超级管理员', '系统用户管理', '删除用户:0000');
+INSERT INTO `base_userlog` VALUES ('1995766378149187584', '2025-12-02 16:05:59', 'Admin', '超级管理员', '系统用户管理', '添加用户:读者1');
+INSERT INTO `base_userlog` VALUES ('1995766378321154048', '2025-12-02 16:05:59', 'Admin', '超级管理员', '系统用户管理', '添加用户:读者1');
+INSERT INTO `base_userlog` VALUES ('1995766458205868032', '2025-12-02 16:06:18', 'Admin', '超级管理员', '系统用户管理', '添加用户:读者2');
+INSERT INTO `base_userlog` VALUES ('1995766458403000320', '2025-12-02 16:06:18', 'Admin', '超级管理员', '系统用户管理', '添加用户:读者2');
+INSERT INTO `base_userlog` VALUES ('1995766510198460416', '2025-12-02 16:06:30', 'Admin', '超级管理员', '系统用户管理', '修改用户:读者2');
+INSERT INTO `base_userlog` VALUES ('1995766510236209152', '2025-12-02 16:06:30', 'Admin', '超级管理员', '系统用户管理', '修改用户:读者2');
+INSERT INTO `base_userlog` VALUES ('1995766718177218560', '2025-12-02 16:07:20', 'Admin', '超级管理员', '系统用户管理', '修改用户:作者1');
+INSERT INTO `base_userlog` VALUES ('1995766718521151488', '2025-12-02 16:07:20', 'Admin', '超级管理员', '系统用户管理', '修改用户:作者1');
+INSERT INTO `base_userlog` VALUES ('1995766810657427456', '2025-12-02 16:07:42', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-作者');
+INSERT INTO `base_userlog` VALUES ('1995766810690981888', '2025-12-02 16:07:42', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-作者');
+INSERT INTO `base_userlog` VALUES ('1995766843461079040', '2025-12-02 16:07:50', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-游客');
+INSERT INTO `base_userlog` VALUES ('1995766843519799296', '2025-12-02 16:07:50', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-游客');
+INSERT INTO `base_userlog` VALUES ('1995766884590424064', '2025-12-02 16:07:59', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-用户');
+INSERT INTO `base_userlog` VALUES ('1995766884691087360', '2025-12-02 16:08:00', 'Admin', '超级管理员', '系统角色管理', '修改角色:权限-用户');
+INSERT INTO `base_userlog` VALUES ('1995767847363547136', '2025-12-02 16:11:49', 'Admin', '超级管理员', '系统用户管理', '修改用户:作者2');
+INSERT INTO `base_userlog` VALUES ('1995767847841697792', '2025-12-02 16:11:49', 'Admin', '超级管理员', '系统用户管理', '修改用户:作者2');
+INSERT INTO `base_userlog` VALUES ('1995767893773520896', '2025-12-02 16:12:00', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('1995767893874184192', '2025-12-02 16:12:00', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('1995767912853409792', '2025-12-02 16:12:05', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('1995767912958267392', '2025-12-02 16:12:05', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('1996789248031723520', '2025-12-05 11:50:30', 'Admin', '超级管理员', '接口密钥管理', '添加应用Id:PcUser');
+INSERT INTO `base_userlog` VALUES ('1996789285159702528', '2025-12-05 11:50:39', 'Admin', '超级管理员', '接口密钥管理', '修改应用Id:PcUser');
+INSERT INTO `base_userlog` VALUES ('1998629697117753344', '2025-12-10 13:43:47', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('1998629697281331200', '2025-12-10 13:43:47', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('1998629709553864704', '2025-12-10 13:43:50', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('1998629709662916608', '2025-12-10 13:43:50', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('1998629719334981632', '2025-12-10 13:43:52', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('1998629719431450624', '2025-12-10 13:43:53', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2001942491841957888', '2025-12-19 17:07:39', 'Admin', '超级管理员', '系统用户管理', '添加用户:张飞');
+INSERT INTO `base_userlog` VALUES ('2001942492949254144', '2025-12-19 17:07:39', 'Admin', '超级管理员', '系统用户管理', '添加用户:张飞');
+INSERT INTO `base_userlog` VALUES ('2001943595258482688', '2025-12-19 17:12:02', 'Admin', '超级管理员', '系统用户管理', '添加用户:');
+INSERT INTO `base_userlog` VALUES ('2001943595656941568', '2025-12-19 17:12:02', 'Admin', '超级管理员', '系统用户管理', '添加用户:');
+INSERT INTO `base_userlog` VALUES ('2001944444651180032', '2025-12-19 17:15:25', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2001944444722483200', '2025-12-19 17:15:25', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002929913341939712', '2025-12-22 10:31:19', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002929913635540992', '2025-12-22 10:31:19', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002930818359496704', '2025-12-22 10:34:54', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002930818636320768', '2025-12-22 10:34:54', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002930857450409984', '2025-12-22 10:35:04', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002930857546878976', '2025-12-22 10:35:04', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002931469420335104', '2025-12-22 10:37:30', '2002931268580282368', NULL, '系统用户管理', '修改用户:');
+INSERT INTO `base_userlog` VALUES ('2002931469583912960', '2025-12-22 10:37:30', '2002931268580282368', NULL, '系统用户管理', '修改用户:');
+INSERT INTO `base_userlog` VALUES ('2002986966160773120', '2025-12-22 14:18:01', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002986966240464896', '2025-12-22 14:18:01', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002987012298117120', '2025-12-22 14:18:12', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2002987012629467136', '2025-12-22 14:18:12', 'Admin', '超级管理员', '系统用户管理', '修改用户:超级管理员');
+INSERT INTO `base_userlog` VALUES ('2003017507945844736', '2025-12-22 16:19:23', 'Admin', '超级管理员', '系统用户管理', '修改用户:左车灯');
+INSERT INTO `base_userlog` VALUES ('2003017508138782720', '2025-12-22 16:19:23', 'Admin', '超级管理员', '系统用户管理', '修改用户:左车灯');
+INSERT INTO `base_userlog` VALUES ('2003017660287160320', '2025-12-22 16:19:59', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017660484292608', '2025-12-22 16:19:59', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017670416404480', '2025-12-22 16:20:02', 'Admin', '超级管理员', '系统用户管理', '删除用户:张飞');
+INSERT INTO `base_userlog` VALUES ('2003017670487707648', '2025-12-22 16:20:02', 'Admin', '超级管理员', '系统用户管理', '删除用户:张飞');
+INSERT INTO `base_userlog` VALUES ('2003017680331739136', '2025-12-22 16:20:04', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017680403042304', '2025-12-22 16:20:04', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017691165626368', '2025-12-22 16:20:07', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017691220152320', '2025-12-22 16:20:07', 'Admin', '超级管理员', '系统用户管理', '删除用户:');
+INSERT INTO `base_userlog` VALUES ('2003017794156761088', '2025-12-22 16:20:31', 'Admin', '超级管理员', '系统用户管理', '修改用户:做着饭摄氏度');
+INSERT INTO `base_userlog` VALUES ('2003017794265812992', '2025-12-22 16:20:31', 'Admin', '超级管理员', '系统用户管理', '修改用户:做着饭摄氏度');
+INSERT INTO `base_userlog` VALUES ('2003017856643502080', '2025-12-22 16:20:46', 'Admin', '超级管理员', '系统用户管理', '修改用户:渡边风间');
+INSERT INTO `base_userlog` VALUES ('2003017856815468544', '2025-12-22 16:20:46', 'Admin', '超级管理员', '系统用户管理', '修改用户:渡边风间');
+INSERT INTO `base_userlog` VALUES ('2003017924956131328', '2025-12-22 16:21:02', 'Admin', '超级管理员', '系统用户管理', '修改用户:独自月');
+INSERT INTO `base_userlog` VALUES ('2003017925337812992', '2025-12-22 16:21:02', 'Admin', '超级管理员', '系统用户管理', '修改用户:独自月');
 
 -- ----------------------------
 -- Table structure for base_userrole
@@ -338,9 +433,22 @@ INSERT INTO `base_userrole` VALUES ('1181927367719784448', '2019-10-09 21:40:18'
 INSERT INTO `base_userrole` VALUES ('1181927367719784449', '2019-10-09 21:40:18', NULL, 0, '1181922344629702656', '1180486275199668224');
 INSERT INTO `base_userrole` VALUES ('1181927783786352640', '2019-10-09 21:41:57', NULL, 0, '1181927783727632384', '1180819481383931904');
 INSERT INTO `base_userrole` VALUES ('1990977707202056192', '2025-11-19 10:57:31', NULL, 0, '1990964509132460032', '1990975039104618496');
-INSERT INTO `base_userrole` VALUES ('1990977761476349952', '2025-11-19 10:57:44', NULL, 0, '1181928860648738816', '1990975072537415680');
-INSERT INTO `base_userrole` VALUES ('1990977793067847680', '2025-11-19 10:57:51', NULL, 0, '1183363221872971776', '1990975096713383936');
 INSERT INTO `base_userrole` VALUES ('1991425455583924224', '2025-11-20 16:36:42', NULL, 0, '1990981464736403456', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('1993851337091059712', '2025-11-27 09:16:17', NULL, 0, '1181928860648738816', '1993617296907571200');
+INSERT INTO `base_userrole` VALUES ('1993851423716020224', '2025-11-27 09:16:38', NULL, 0, '1183363221872971776', '1993617296907571200');
+INSERT INTO `base_userrole` VALUES ('1998596061110734848', '2025-12-10 11:30:08', NULL, 0, '1998596059558842368', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('1998602627474001920', '2025-12-10 11:56:13', NULL, 0, '1998602626312179712', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('1998602832923594752', '2025-12-10 11:57:02', NULL, 0, '1998602832747433984', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('1998629220980363264', '2025-12-10 13:41:54', NULL, 0, '1998628768746311680', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('2002987012235202560', '2025-12-22 14:18:12', NULL, 0, 'Admin', '1180486275199668224');
+INSERT INTO `base_userrole` VALUES ('2002987012235202561', '2025-12-22 14:18:12', NULL, 0, 'Admin', '1993617296907571200');
+INSERT INTO `base_userrole` VALUES ('2002987012235202562', '2025-12-22 14:18:12', NULL, 0, 'Admin', '1990974945336758272');
+INSERT INTO `base_userrole` VALUES ('2002987012235202563', '2025-12-22 14:18:12', NULL, 0, 'Admin', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('2002987012235202564', '2025-12-22 14:18:12', NULL, 0, 'Admin', '1991712451162279936');
+INSERT INTO `base_userrole` VALUES ('2003017507769683968', '2025-12-22 16:19:23', NULL, 0, '1995766124326686720', '1993617296907571200');
+INSERT INTO `base_userrole` VALUES ('2003017794131595264', '2025-12-22 16:20:31', NULL, 0, '1995766248624885760', '1993617296907571200');
+INSERT INTO `base_userrole` VALUES ('2003017856630919168', '2025-12-22 16:20:46', NULL, 0, '1995766378090467328', '1990975039104618496');
+INSERT INTO `base_userrole` VALUES ('2003017924943548416', '2025-12-22 16:21:02', NULL, 0, '1995766458172313600', '1990975039104618496');
 
 -- ----------------------------
 -- Table structure for blog_article
@@ -354,15 +462,15 @@ CREATE TABLE `blog_article`  (
   `CoverImage` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '封面图片URL',
   `CategoryId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分类ID',
   `AuthorId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '作者ID(关联Base_User.Id)',
-  `Status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '文章状态(0=草稿,1=已发布,2=已隐藏)',
-  `IsTop` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否置顶(0=否,1=是)',
-  `IsRecommend` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否推荐(0=否,1=是)',
-  `AllowComment` tinyint(4) NOT NULL DEFAULT 1 COMMENT '是否允许评论(0=否,1=是)',
+  `Status` int(4) NOT NULL DEFAULT 0 COMMENT '文章状态(0=草稿,1=已发布,2=已隐藏)',
+  `IsTop` int(4) NOT NULL DEFAULT 0 COMMENT '是否置顶(0=否,1=是)',
+  `IsRecommend` int(4) NOT NULL DEFAULT 0 COMMENT '是否推荐(0=否,1=是)',
+  `AllowComment` int(4) NOT NULL DEFAULT 1 COMMENT '是否允许评论(0=否,1=是)',
   `ViewCount` int(11) NOT NULL DEFAULT 0 COMMENT '阅读量',
   `LikeCount` int(11) NOT NULL DEFAULT 0 COMMENT '点赞数',
   `CommentCount` int(11) NOT NULL DEFAULT 0 COMMENT '评论数',
   `PublishTime` datetime NULL DEFAULT NULL COMMENT '发布时间',
-  `IsDeleted` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
+  `IsDeleted` int(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
   `CreatedTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `CreatorId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人ID',
   `UpdatedTime` datetime NULL DEFAULT NULL COMMENT '更新时间',
@@ -379,25 +487,18 @@ CREATE TABLE `blog_article`  (
 -- ----------------------------
 -- Records of blog_article
 -- ----------------------------
-
--- ----------------------------
--- Table structure for blog_articletag
--- ----------------------------
-DROP TABLE IF EXISTS `blog_articletag`;
-CREATE TABLE `blog_articletag`  (
-  `Id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '主键',
-  `ArticleId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章ID',
-  `TagId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签ID',
-  `CreatedTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`Id`) USING BTREE,
-  UNIQUE INDEX `uk_article_tag`(`ArticleId` ASC, `TagId` ASC) USING BTREE COMMENT '文章-标签联合唯一索引',
-  INDEX `idx_article`(`ArticleId` ASC) USING BTREE,
-  INDEX `idx_tag`(`TagId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文章标签关联表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of blog_articletag
--- ----------------------------
+INSERT INTO `blog_article` VALUES ('art001', 'Vue.js 3.0 核心特性详解', '深入解析Vue.js 3.0的Composition API、响应式系统、性能优化等核心特性，帮助开发者快速掌握Vue3的精髓。', '深入解析Vue.js 3.0的Composition API、响应式系统、性能优化等核心特性，帮助开发者快速掌握Vue3的精髓。', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat001', 'Admin', 0, 1, 1, 0, 1581, 0, 4, '2025-11-26 16:49:55', 0, '2025-11-15 10:00:00', 'Admin', '2025-12-22 14:18:43', 'Admin');
+INSERT INTO `blog_article` VALUES ('art002', '.NET Core 微服务架构实战', '基于.NET Core构建微服务架构的完整实战教程，涵盖服务拆分、服务通信、服务治理等核心内容。', '<h1>.NET Core 微服务架构实战</h1>\n<h2>项目背景</h2>\n<p>随着业务的快速发展，单体应用已经无法满足需求，本文将介绍如何使用.NET Core构建微服务架构...</p>\n<h2>技术选型</h2>\n<ul>\n<li>API网关: Ocelot</li>\n<li>服务注册与发现: Consul</li>\n<li>服务通信: gRPC</li>\n<li>消息队列: RabbitMQ</li>\n<li>分布式缓存: Redis</li>\n</ul>\n<h2>服务拆分</h2>\n<p>按照DDD领域驱动设计思想，将系统拆分为以下服务...</p>', 'https://i.ibb.co/4wd95pXP/e-KYR1wbj-Xx-jpg.jpg', 'cat004', 'Admin', 1, 1, 1, 1, 2343, 2, 3, '2025-11-25 16:47:17', 0, '2025-11-10 14:00:00', 'Admin', '2025-12-22 14:18:50', 'Admin');
+INSERT INTO `blog_article` VALUES ('art003', '我的编程之路：从入门到放弃再到坚持', '回顾自己学习编程的心路历程，分享遇到的困难、突破的喜悦，以及对未来的期待。', '<h1>我的编程之路</h1>\r\n<h2>初识编程</h2>\r\n<p>记得第一次接触编程是在大学时期，那时候对着黑色的命令行窗口，敲下第一行代码：<code>console.log(\"Hello World\")</code></p>\r\n<h2>遇到的困难</h2>\r\n<p>学习过程中遇到过很多困难，比如指针、递归、算法等概念一开始完全看不懂...</p>\r\n<h2>突破与成长</h2>\r\n<p>经过不断的学习和实践，逐渐找到了学习方法，也开始享受编程带来的乐趣...</p>\r\n<h2>未来展望</h2>\r\n<p>希望能够在技术的道路上走得更远，也希望能够帮助更多的人...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat002', 'Admin', 1, 0, 1, 1, 857, 0, 4, '2025-11-12 09:45:00', 0, '2025-11-12 09:30:00', '1181928860648738816', '2025-12-22 14:18:56', 'Admin');
+INSERT INTO `blog_article` VALUES ('art004', 'MySQL 性能优化实战：从慢查询到索引优化', '详细讲解MySQL性能优化的各种技巧，包括慢查询分析、索引设计、SQL优化等实战经验。', '<h1>MySQL 性能优化实战</h1>\r\n<h2>一、慢查询分析</h2>\r\n<p>通过开启慢查询日志，找出系统中执行缓慢的SQL语句...</p>\r\n<pre><code>\r\n-- 开启慢查询日志\r\nSET GLOBAL slow_query_log = \'ON\';\r\nSET GLOBAL long_query_time = 2;\r\n</code></pre>\r\n<h2>二、索引优化</h2>\r\n<p>合理的索引设计是提升查询性能的关键...</p>\r\n<ul>\r\n<li>选择合适的索引类型</li>\r\n<li>避免索引失效</li>\r\n<li>覆盖索引的使用</li>\r\n</ul>\r\n<h2>三、SQL优化</h2>\r\n<p>优化SQL语句的编写方式，提升查询效率...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat001', 'Admin', 1, 0, 1, 1, 1893, 1, 6, '2025-12-22 14:19:27', 0, '2025-11-08 16:00:00', 'Admin', '2025-12-22 14:19:29', 'Admin');
+INSERT INTO `blog_article` VALUES ('art005', 'Git 版本控制最佳实践', '总结Git使用过程中的最佳实践，包括分支管理、提交规范、冲突解决等实用技巧。', '<h1>Git 版本控制最佳实践</h1>\r\n<h2>分支管理策略</h2>\r\n<p>采用Git Flow工作流，规范团队协作...</p>\r\n<ul>\r\n<li>master: 主分支，保持稳定</li>\r\n<li>develop: 开发分支</li>\r\n<li>feature: 功能分支</li>\r\n<li>hotfix: 热修复分支</li>\r\n</ul>\r\n<h2>提交规范</h2>\r\n<pre><code>\r\nfeat: 新增功能\r\nfix: 修复bug\r\ndocs: 文档更新\r\nstyle: 代码格式调整\r\nrefactor: 代码重构\r\n</code></pre>\r\n<h2>常用命令</h2>\r\n<p>整理了Git使用过程中的常用命令...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat005', 'Admin', 1, 0, 1, 1, 1246, 1, 3, '2025-11-14 11:20:00', 0, '2025-11-14 11:00:00', '1990964509132460032', '2025-12-22 14:19:41', 'Admin');
+INSERT INTO `blog_article` VALUES ('art006', 'TypeScript 从入门到精通', '系统学习TypeScript的类型系统、高级特性、实战应用，帮助JavaScript开发者快速掌握TypeScript。', '<h1>TypeScript 从入门到精通</h1>\r\n<h2>为什么选择TypeScript</h2>\r\n<p>TypeScript为JavaScript添加了类型系统，带来了更好的开发体验...</p>\r\n<h2>基础类型</h2>\r\n<pre><code>\r\nlet isDone: boolean = false\r\nlet count: number = 10\r\nlet name: string = \"TypeScript\"\r\nlet list: number[] = [1, 2, 3]\r\n</code></pre>\r\n<h2>高级类型</h2>\r\n<p>泛型、联合类型、交叉类型等高级特性...</p>\r\n<h2>实战应用</h2>\r\n<p>在Vue 3项目中使用TypeScript的最佳实践...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat003', 'Admin', 1, 0, 1, 1, 1678, 1, 4, '2025-11-13 13:40:00', 0, '2025-11-13 13:20:00', 'Admin', '2025-12-22 14:19:49', 'Admin');
+INSERT INTO `blog_article` VALUES ('art007', 'Docker 容器化部署实战指南', '详解Docker的核心概念、镜像制作、容器编排，以及在生产环境中的最佳实践。', '<h1>Docker 容器化部署实战</h1>\r\n<h2>Docker基础</h2>\r\n<p>Docker是一个开源的容器化平台...</p>\r\n<h2>Dockerfile编写</h2>\r\n<pre><code>\r\nFROM node:16-alpine\r\nWORKDIR /app\r\nCOPY package*.json ./\r\nRUN npm install\r\nCOPY . .\r\nEXPOSE 3000\r\nCMD [\"npm\", \"start\"]\r\n</code></pre>\r\n<h2>Docker Compose</h2>\r\n<p>使用Docker Compose编排多容器应用...</p>\r\n<h2>生产环境部署</h2>\r\n<p>Docker在生产环境中的使用注意事项...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat004', 'Admin', 1, 0, 1, 1, 2019, 0, 5, '2025-11-09 15:30:00', 0, '2025-11-09 15:00:00', '1990981464736403456', '2025-12-22 14:19:58', 'Admin');
+INSERT INTO `blog_article` VALUES ('art008', '读《代码整洁之道》有感', '阅读《Clean Code》后的思考与总结，分享如何写出更整洁、更易维护的代码。', '<h1>读《代码整洁之道》有感</h1>\r\n<h2>什么是整洁代码</h2>\r\n<p>整洁代码应该是优雅的、高效的、易读的...</p>\r\n<h2>命名的艺术</h2>\r\n<p>好的命名能够让代码自解释，减少注释的需要...</p>\r\n<h2>函数设计</h2>\r\n<ul>\r\n<li>单一职责原则</li>\r\n<li>参数数量控制</li>\r\n<li>避免副作用</li>\r\n</ul>\r\n<h2>实践建议</h2>\r\n<p>在日常开发中如何应用这些原则...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat003', 'Admin', 1, 0, 0, 1, 725, 1, 3, '2025-11-11 10:15:00', 0, '2025-11-11 10:00:00', '1183363221872971776', '2025-11-26 11:27:41', 'Admin');
+INSERT INTO `blog_article` VALUES ('art009', '周末爬山记：远离城市的喧嚣', '记录周末爬山的经历，分享大自然带来的宁静与思考。', '<h1>周末爬山记</h1>\r\n<h2>出发前的准备</h2>\r\n<p>早上六点起床，准备好装备和干粮，开始了这次爬山之旅...</p>\r\n<h2>登山过程</h2>\r\n<p>山路蜿蜒曲折，沿途风景秀丽，空气清新...</p>\r\n<h2>山顶的风景</h2>\r\n<p>终于登上山顶，眼前豁然开朗，远处的城市尽收眼底...</p>\r\n<h2>感悟</h2>\r\n<p>这次爬山让我明白，生活不仅仅是工作和代码，也需要偶尔停下来，享受大自然的美好...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat002', 'Admin', 1, 0, 0, 1, 435, 0, 3, '2025-11-17 20:30:00', 0, '2025-11-17 20:00:00', '1181928860648738816', '2025-11-26 11:27:42', 'Admin');
+INSERT INTO `blog_article` VALUES ('art010', 'Redis 缓存设计与实践', '深入探讨Redis在实际项目中的应用，包括缓存设计模式、数据结构选择、性能优化等。', '<h1>Redis 缓存设计与实践</h1>\r\n<h2>缓存设计模式</h2>\r\n<p>常见的缓存设计模式及其应用场景...</p>\r\n<ul>\r\n<li>Cache Aside Pattern</li>\r\n<li>Read Through</li>\r\n<li>Write Through</li>\r\n<li>Write Behind</li>\r\n</ul>\r\n<h2>Redis数据结构</h2>\r\n<p>不同数据结构的特点和使用场景...</p>\r\n<h2>缓存穿透与雪崩</h2>\r\n<p>如何解决缓存穿透、缓存击穿、缓存雪崩等问题...</p>\r\n<h2>实战案例</h2>\r\n<p>在电商项目中使用Redis的实际案例...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat001', 'Admin', 1, 0, 1, 1, 1958, 0, 7, '2025-11-07 14:50:00', 0, '2025-11-07 14:30:00', 'Admin', '2025-11-19 16:20:00', 'Admin');
+INSERT INTO `blog_article` VALUES ('art011', '提升效率的20个VS Code插件推荐', '精选20个实用的VS Code插件，帮助开发者提升开发效率，优化编码体验。', '<h1>提升效率的VS Code插件推荐</h1>\r\n<h2>代码编辑类</h2>\r\n<ul>\r\n<li>Prettier - 代码格式化</li>\r\n<li>ESLint - 代码检查</li>\r\n<li>IntelliCode - AI代码补全</li>\r\n</ul>\r\n<h2>Git工具类</h2>\r\n<ul>\r\n<li>GitLens - Git增强工具</li>\r\n<li>Git Graph - Git可视化</li>\r\n</ul>\r\n<h2>主题美化类</h2>\r\n<ul>\r\n<li>One Dark Pro - 护眼主题</li>\r\n<li>Material Icon Theme - 图标主题</li>\r\n</ul>\r\n<h2>其他实用插件</h2>\r\n<p>还有很多优秀的插件等待发现...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat005', 'Admin', 1, 0, 1, 1, 1576, 0, 4, '2025-11-16 09:20:00', 0, '2025-11-16 09:00:00', '1990964509132460032', '2025-11-26 11:27:46', 'Admin');
+INSERT INTO `blog_article` VALUES ('art012', '前端性能优化实战：从理论到实践', '全面讲解前端性能优化的各个方面，包括加载优化、渲染优化、代码优化等实战技巧。', '<h1>前端性能优化实战</h1>\r\n<h2>性能指标</h2>\r\n<p>了解FCP、LCP、FID、CLS等核心性能指标...</p>\r\n<h2>加载优化</h2>\r\n<ul>\r\n<li>资源压缩与合并</li>\r\n<li>图片懒加载</li>\r\n<li>代码分割</li>\r\n<li>CDN加速</li>\r\n</ul>\r\n<h2>渲染优化</h2>\r\n<p>优化浏览器渲染过程，提升页面流畅度...</p>\r\n<h2>代码优化</h2>\r\n<p>JavaScript和CSS的优化技巧...</p>\r\n<h2>实战案例</h2>\r\n<p>某电商网站的性能优化实战经验...</p>', 'https://i.ibb.co/3mCJc34z/t044626d4ce5cc5e2aa-jpg.jpg', 'cat004', 'Admin', 1, 1, 1, 1, 2195, 1, 10, '2025-11-06 11:40:00', 0, '2025-11-06 11:20:00', 'Admin', '2025-12-02 18:00:04', 'Admin');
 
 -- ----------------------------
 -- Table structure for blog_banner
@@ -437,9 +538,9 @@ CREATE TABLE `blog_category`  (
   `Description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '分类描述',
   `Icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '分类图标',
   `SortIndex` int(11) NOT NULL DEFAULT 0 COMMENT '排序号(越小越靠前)',
-  `Status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态(0=禁用,1=启用)',
+  `Status` int(4) NOT NULL DEFAULT 1 COMMENT '状态(0=禁用,1=启用)',
   `ArticleCount` int(11) NOT NULL DEFAULT 0 COMMENT '该分类下的文章数量',
-  `IsDeleted` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
+  `IsDeleted` int(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
   `CreatedTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `CreatorId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人Id',
   `UpdatedTime` datetime NULL DEFAULT NULL COMMENT '更新时间',
@@ -452,11 +553,11 @@ CREATE TABLE `blog_category`  (
 -- ----------------------------
 -- Records of blog_category
 -- ----------------------------
-INSERT INTO `blog_category` VALUES ('cat001', '技术分享', '技术类文章，分享编程经验与技术心得', 'icon-code', 1, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
-INSERT INTO `blog_category` VALUES ('cat002', '生活随笔', '记录生活点滴，分享生活感悟', 'icon-edit', 2, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
-INSERT INTO `blog_category` VALUES ('cat003', '学习笔记', '学习过程中的笔记与总结', 'icon-book', 3, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
-INSERT INTO `blog_category` VALUES ('cat004', '项目实战', '实际项目开发经验分享', 'icon-project', 4, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
-INSERT INTO `blog_category` VALUES ('cat005', '工具推荐', '好用的开发工具与软件推荐', 'icon-tool', 5, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
+INSERT INTO `blog_category` VALUES ('cat001', '技术分享', '技术类文章，分享编程经验与技术心得', 'vertical-left', 1, 0, 200, 1, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
+INSERT INTO `blog_category` VALUES ('cat002', '生活随笔', '记录生活点滴，分享生活感悟', 'right-circle', 2, 0, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
+INSERT INTO `blog_category` VALUES ('cat003', '学习笔记', '学习过程中的笔记与总结', 'check-square', 3, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
+INSERT INTO `blog_category` VALUES ('cat004', '项目实战', '实际项目开发经验分享', 'minus-circle', 4, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
+INSERT INTO `blog_category` VALUES ('cat005', '工具推荐', '好用的开发工具与软件推荐', 'diff', 5, 1, 0, 0, '2025-11-21 14:00:59', 'Admin', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for blog_comment
@@ -470,8 +571,8 @@ CREATE TABLE `blog_comment`  (
   `ParentId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '父评论ID(NULL表示一级评论)',
   `ReplyToUserId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '回复的目标用户ID(@用户)',
   `LikeCount` int(11) NOT NULL DEFAULT 0 COMMENT '点赞数',
-  `Status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态(0=已删除,1=正常,2=已屏蔽)',
-  `IsDeleted` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
+  `Status` int(4) NOT NULL DEFAULT 1 COMMENT '状态(0=已删除,1=正常,2=已屏蔽)',
+  `IsDeleted` int(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
   `CreatedTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '评论时间',
   `UpdatedTime` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`Id`) USING BTREE,
@@ -484,6 +585,48 @@ CREATE TABLE `blog_comment`  (
 -- ----------------------------
 -- Records of blog_comment
 -- ----------------------------
+INSERT INTO `blog_comment` VALUES ('cmt_1993518_001', '1993518537196441600', '1995766378090467328', '<p>这篇文章的内容很有意思</p>', NULL, NULL, 2, 1, 0, '2025-11-27 10:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_1993518_002', '1993518537196441600', '1995766458172313600', '<p>期待更多精彩内容</p>', NULL, NULL, 1, 1, 0, '2025-11-27 14:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art003_001', 'art003', '1995766378090467328', '<p>写得太真实了，我也是从放弃到坚持过来的，感同身受！</p>', NULL, NULL, 5, 1, 0, '2025-11-13 10:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art003_002', 'art003', '1995766458172313600', '<p>请问作者是怎么克服学习算法时的困难的？有什么好的学习方法推荐吗？</p>', NULL, NULL, 3, 1, 0, '2025-11-13 14:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art003_003', 'art003', '1995766124326686720', '<p>多刷题，从简单的开始，推荐LeetCode和牛客网</p>', 'cmt_art003_002', '1995766458172313600', 8, 1, 0, '2025-11-13 15:45:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art003_004', 'art003', '2001942489778360320', '<p>加油！编程之路虽然艰辛但很值得</p>', NULL, NULL, 2, 1, 0, '2025-11-14 09:10:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art004_001', 'art004', '1995766248624885760', '<p>干货满满！索引优化那部分讲得特别清楚</p>', NULL, NULL, 12, 1, 0, '2025-11-09 10:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art004_002', 'art004', '1995766378090467328', '<p>请问覆盖索引在什么场景下使用效果最好？</p>', NULL, NULL, 4, 1, 0, '2025-11-09 14:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art004_003', 'art004', 'Admin', '<p>当查询的字段全部在索引中时，就不需要回表查询了，这就是覆盖索引的优势</p>', 'cmt_art004_002', '1995766378090467328', 15, 1, 0, '2025-11-09 16:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art004_004', 'art004', '1995766458172313600', '<p>收藏了，非常实用的优化技巧</p>', NULL, NULL, 6, 1, 0, '2025-11-10 08:45:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art004_005', 'art004', '1995766248624885760', '<p>能讲讲分库分表吗？</p>', NULL, NULL, 3, 1, 0, '2025-11-10 11:30:00', '2025-12-22 16:21:53');
+INSERT INTO `blog_comment` VALUES ('cmt_art005_001', 'art005', '1995766124326686720', '<p>Git Flow工作流讲得很清楚，我们团队正在用这个</p>', NULL, NULL, 7, 1, 0, '2025-11-15 09:00:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art005_002', 'art005', '1995766458172313600', '<p>提交规范很重要，养成好习惯</p>', NULL, NULL, 4, 1, 0, '2025-11-15 11:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art005_003', 'art005', '1995766248624885760', '<p>推荐使用commitizen工具来规范提交信息</p>', 'cmt_art005_002', '1995766458172313600', 9, 1, 0, '2025-11-15 14:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art006_001', 'art006', '1995766378090467328', '<p>终于有人把TypeScript讲明白了！</p>', NULL, NULL, 10, 1, 0, '2025-11-14 10:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art006_002', 'art006', '1995766378090467328', '<p>泛型那部分能再详细讲讲吗？感觉还是有点难理解</p>', NULL, NULL, 5, 1, 0, '2025-11-14 15:40:00', '2025-12-22 16:22:03');
+INSERT INTO `blog_comment` VALUES ('cmt_art006_003', 'art006', '1995766124326686720', '<p>可以看看TypeScript官方文档的泛型章节，写得很详细</p>', 'cmt_art006_002', '2001942489778360320', 6, 1, 0, '2025-11-14 17:25:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art006_004', 'art006', '1995766248624885760', '<p>Vue3 + TypeScript真的很香</p>', NULL, NULL, 8, 1, 0, '2025-11-15 09:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art007_001', 'art007', '1995766248624885760', '<p>Docker Compose编排多容器应用太方便了</p>', NULL, NULL, 11, 1, 0, '2025-11-10 10:00:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art007_002', 'art007', '1995766378090467328', '<p>生产环境用Docker有什么需要特别注意的吗？</p>', NULL, NULL, 6, 1, 0, '2025-11-10 14:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art007_003', 'art007', 'Admin', '<p>注意资源限制、日志管理、健康检查，还有镜像安全扫描</p>', 'cmt_art007_002', '1995766378090467328', 13, 1, 0, '2025-11-10 16:45:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art007_004', 'art007', '1995766458172313600', '<p>求推荐Docker相关的学习资源</p>', NULL, NULL, 4, 1, 0, '2025-11-11 09:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art007_005', 'art007', '2001942489778360320', '<p>Docker官方文档 + 《Docker技术入门与实战》</p>', 'cmt_art007_004', '1995766458172313600', 7, 1, 0, '2025-11-11 11:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art008_001', 'art008', '1995766124326686720', '<p>这本书确实是程序员必读的经典</p>', NULL, NULL, 9, 1, 0, '2025-11-12 10:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art008_002', 'art008', '1995766458172313600', '<p>命名真的是个艺术，好的命名能省很多注释</p>', NULL, NULL, 5, 1, 0, '2025-11-12 14:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art008_003', 'art008', '1995766248624885760', '<p>还推荐《重构》和《程序员修炼之道》</p>', NULL, NULL, 7, 1, 0, '2025-11-13 09:00:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art009_001', 'art009', '1995766378090467328', '<p>照片拍得真好！是哪座山？</p>', NULL, NULL, 3, 1, 0, '2025-11-18 08:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art009_002', 'art009', '1995766248624885760', '<p>程序员也要注意身体健康，多运动</p>', NULL, NULL, 4, 1, 0, '2025-11-18 10:45:00', '2025-12-22 16:22:15');
+INSERT INTO `blog_comment` VALUES ('cmt_art009_003', 'art009', '1995766458172313600', '<p>下次可以约着一起爬山啊</p>', NULL, NULL, 2, 1, 0, '2025-11-18 15:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art010_001', 'art010', '1995766124326686720', '<p>缓存穿透和雪崩的解决方案讲得很透彻</p>', NULL, NULL, 14, 1, 0, '2025-11-08 10:00:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art010_002', 'art010', '1995766248624885760', '<p>布隆过滤器在解决缓存穿透时真的很有用</p>', 'cmt_art010_001', '1995766124326686720', 8, 1, 0, '2025-11-08 14:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art010_003', 'art010', '1995766378090467328', '<p>电商项目的案例很实用，学到了</p>', NULL, NULL, 6, 1, 0, '2025-11-09 09:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art010_004', 'art010', '1995766458172313600', '<p>请问Redis集群模式下缓存一致性怎么保证？</p>', NULL, NULL, 5, 1, 0, '2025-11-09 16:40:00', '2025-12-22 16:21:44');
+INSERT INTO `blog_comment` VALUES ('cmt_art011_001', 'art011', '1995766458172313600', '<p>GitLens真的太好用了，强烈推荐</p>', NULL, NULL, 8, 1, 0, '2025-11-17 09:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art011_002', 'art011', '1995766378090467328', '<p>还推荐一个：Todo Tree，管理代码中的TODO很方便</p>', NULL, NULL, 6, 1, 0, '2025-11-17 11:45:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art011_003', 'art011', '1995766124326686720', '<p>Prettier + ESLint 是标配</p>', NULL, NULL, 10, 1, 0, '2025-11-17 14:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art011_004', 'art011', '1995766124326686720', '<p>One Dark Pro主题确实护眼</p>', NULL, NULL, 4, 1, 0, '2025-11-17 16:50:00', '2025-12-22 16:21:26');
+INSERT INTO `blog_comment` VALUES ('cmt_art012_001', 'art012', '1995766248624885760', '<p>Core Web Vitals这部分讲得很清楚</p>', NULL, NULL, 12, 1, 0, '2025-11-07 10:00:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art012_002', 'art012', '1995766378090467328', '<p>图片懒加载和代码分割是最有效的优化手段</p>', NULL, NULL, 7, 1, 0, '2025-11-07 14:30:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art012_003', 'art012', 'Admin', '<p>还有HTTP/2和Service Worker也很重要</p>', 'cmt_art012_002', '1995766378090467328', 9, 1, 0, '2025-11-07 16:15:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art012_004', 'art012', '1995766458172313600', '<p>电商网站的优化案例很有参考价值</p>', NULL, NULL, 5, 1, 0, '2025-11-08 09:20:00', NULL);
+INSERT INTO `blog_comment` VALUES ('cmt_art012_005', 'art012', '1995766124326686720', '<p>Lighthouse评分从40分提升到90分，厉害！</p>', NULL, NULL, 6, 1, 0, '2025-11-08 11:40:00', '2025-12-22 16:19:45');
 
 -- ----------------------------
 -- Table structure for blog_like
@@ -503,6 +646,13 @@ CREATE TABLE `blog_like`  (
 -- ----------------------------
 -- Records of blog_like
 -- ----------------------------
+INSERT INTO `blog_like` VALUES ('1995731349981368320', 'art006', '1995766124326686720', '2025-12-02 13:46:47');
+INSERT INTO `blog_like` VALUES ('1995734717177008128', 'art002', '1995766248624885760', '2025-12-02 14:00:10');
+INSERT INTO `blog_like` VALUES ('1995740081691824128', 'art005', '1995766378090467328', '2025-10-17 14:21:29');
+INSERT INTO `blog_like` VALUES ('2002923896168255488', 'art012', 'Admin', '2025-12-22 10:07:24');
+INSERT INTO `blog_like` VALUES ('2002925225179615232', 'art002', 'Admin', '2025-12-22 10:12:41');
+INSERT INTO `blog_like` VALUES ('2002925279500046336', 'art004', 'Admin', '2025-12-22 10:12:54');
+INSERT INTO `blog_like` VALUES ('2003027185325051904', 'art008', 'Admin', '2025-12-22 16:57:50');
 
 -- ----------------------------
 -- Table structure for blog_setting
@@ -542,7 +692,7 @@ CREATE TABLE `blog_tag`  (
   `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称',
   `Color` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签颜色(HEX色值,如#1890ff)',
   `ArticleCount` int(11) NOT NULL DEFAULT 0 COMMENT '该标签下的文章数量',
-  `IsDeleted` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
+  `IsDeleted` int(4) NOT NULL DEFAULT 0 COMMENT '是否删除(0=否,1=是)',
   `CreatedTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `CreatorId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人Id',
   `UpdatedTime` datetime NULL DEFAULT NULL COMMENT '更新时间',
@@ -554,7 +704,7 @@ CREATE TABLE `blog_tag`  (
 -- ----------------------------
 -- Records of blog_tag
 -- ----------------------------
-INSERT INTO `blog_tag` VALUES ('tag001', 'Vue.js', '#42b883', 0, 0, '2025-11-21 14:01:05', 'Admin', NULL, NULL);
+INSERT INTO `blog_tag` VALUES ('tag001', 'Vue.js', '#E7DF20', 0, 1, '2025-11-21 14:01:05', 'Admin', NULL, NULL);
 INSERT INTO `blog_tag` VALUES ('tag002', '.NET Core', '#512bd4', 0, 0, '2025-11-21 14:01:05', 'Admin', NULL, NULL);
 INSERT INTO `blog_tag` VALUES ('tag003', 'MySQL', '#00758f', 0, 0, '2025-11-21 14:01:05', 'Admin', NULL, NULL);
 INSERT INTO `blog_tag` VALUES ('tag004', '前端开发', '#1890ff', 0, 0, '2025-11-21 14:01:05', 'Admin', NULL, NULL);
